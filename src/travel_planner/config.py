@@ -23,7 +23,7 @@ CACHE_DIR = Path(os.environ.get("TRAVEL_CACHE_DIR", PROJECT_ROOT / "cache"))
 
 
 # Where the code is published, for "View on GitHub" links in the Agent Lab (optional)
-REPO_URL = os.environ.get("TRAVEL_REPO_URL", "").rstrip("/")
+REPO_URL = os.environ.get("TRAVEL_REPO_URL", "https://github.com/ashutoshkaushik/ai-travel-agent").rstrip("/")
 
 
 def today() -> date:

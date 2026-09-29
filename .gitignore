@@ -1,0 +1,26 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets — never commit
+.env
+
+# Local API response cache and databases
+/cache/
+# ...but the eval recordings ARE committed: CI replays them with no API keys
+!/evals/cache/
+*.db
+.DS_Store
+.pytest_cache/
+usage.jsonl
+feedback.jsonl
+evals/results/usage.jsonl
+*.db-shm
+*.db-wal

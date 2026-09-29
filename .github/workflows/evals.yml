@@ -1,0 +1,28 @@
+# Code-only evals on every pull request: no API keys, no cost.
+# The agent runs against recorded API and LLM responses (evals/cache), so any change to a prompt,
+# a tool, or the graph that alters behavior shows up as a replay miss or a failed check.
+# Re-record locally with `uv run python -m evals.run` (needs keys) and commit evals/cache.
+name: evals
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  evals:
+    runs-on: ubuntu-latest
+    env:
+      # Placeholders only: offline mode never calls a paid API. Real keys are never needed here.
+      OPENAI_API_KEY: offline-replay
+      DUFFEL_ACCESS_TOKEN: duffel_test_offline
+      SERPAPI_API_KEY: offline
+      OPENTRIPMAP_API_KEY: offline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync
+      - name: Unit tests
+        run: uv run pytest -q
+      - name: Evals (levels 1 and 2, recorded responses)
+        run: uv run python -m evals.run --offline --no-judge --no-save

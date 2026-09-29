@@ -1,0 +1,84 @@
+{
+ "example": "Do I need a visa for Japan?",
+ "recorded": "2026-09-27",
+ "turns": [
+  {
+   "label": "Working on: Do I need a visa for Japan?",
+   "events": [
+    {
+     "node": "load_profile",
+     "key": "load_profile",
+     "actor": "code",
+     "what": "profile = {}",
+     "ms": 2
+    },
+    {
+     "node": "input_guard",
+     "key": "input_guard",
+     "actor": "code",
+     "what": "guard = None",
+     "ms": 0
+    },
+    {
+     "node": "classify_intent",
+     "key": "classify_intent",
+     "actor": "agent",
+     "what": "intent = travel_question, intent_city = Tokyo",
+     "ms": 652
+    },
+    {
+     "node": "guide \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests search_travel_guide",
+     "ms": 957
+    },
+    {
+     "node": "guide \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_travel_guide returned",
+     "ms": 627
+    },
+    {
+     "node": "guide \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "GuideAnswer returned",
+     "ms": 1127
+    },
+    {
+     "node": "guide",
+     "key": "guide",
+     "actor": "agent",
+     "what": "US citizens can visit Japan visa-free for tourism for up to 90 days. Your passport must be valid for the whole",
+     "ms": 1
+    }
+   ],
+   "summary": "LLM calls: 3 | tool calls: 1 | tokens in/out: 1,436/108 | est. cost: $0.0003",
+   "seconds": 3.37,
+   "cost_usd": 0.00028,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Do I need a visa for Japan?",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "US citizens can visit Japan visa-free for tourism for up to 90 days. Your passport must be valid for the whole stay. Entry rules change: confirm with official government sources before you travel.\n\ud83d\udcd6 Sources: tokyo/visa-and-entry",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": null,
+    "plan": null,
+    "costs": null,
+    "trip_status": null,
+    "details": null
+   },
+   "pending": null
+  }
+ ]
+}

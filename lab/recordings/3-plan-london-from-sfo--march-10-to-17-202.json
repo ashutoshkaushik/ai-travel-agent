@@ -1,0 +1,836 @@
+{
+ "example": "Plan London from SFO, March 10 to 17 2027, 2 adults, budget 1500 dollars",
+ "recorded": "2026-09-27",
+ "turns": [
+  {
+   "label": "Working on: Plan London from SFO, March 10 to 17 2027, 2 adults, budget 1500 dolla\u2026",
+   "events": [
+    {
+     "node": "load_profile",
+     "key": "load_profile",
+     "actor": "code",
+     "what": "profile = {}",
+     "ms": 2
+    },
+    {
+     "node": "input_guard",
+     "key": "input_guard",
+     "actor": "code",
+     "what": "guard = None",
+     "ms": 1
+    },
+    {
+     "node": "classify_intent",
+     "key": "classify_intent",
+     "actor": "agent",
+     "what": "intent = plan_trip, intent_city = London",
+     "ms": 692
+    },
+    {
+     "node": "intake \u203a extract",
+     "key": "extract",
+     "actor": "agent",
+     "what": "draft = {'origin': 'SFO', 'city': 'London', 'dep",
+     "ms": 814
+    },
+    {
+     "node": "intake \u203a validate",
+     "key": "validate",
+     "actor": "code",
+     "what": "request = {'origin': 'SFO', 'city': 'London', 'dep, problems = []",
+     "ms": 0
+    },
+    {
+     "node": "intake \u203a confirm",
+     "key": "confirm",
+     "actor": "code",
+     "what": "Got it: SFO \u2192 London (LHR), Mar 10 \u2013 Mar 17, 2027 (7 nights), 2 adults, budget $1,500.",
+     "ms": 0
+    },
+    {
+     "node": "intake",
+     "key": "intake",
+     "actor": "agent",
+     "what": "Got it: SFO \u2192 London (LHR), Mar 10 \u2013 Mar 17, 2027 (7 nights), 2 adults, budget $1,500.",
+     "ms": 1
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests search_flights, search_hotels",
+     "ms": 1516
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_hotels returned",
+     "ms": 5
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_flights returned",
+     "ms": 1558
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests search_top_sights",
+     "ms": 645
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_top_sights returned",
+     "ms": 4
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "TripPlan returned",
+     "ms": 3192
+    },
+    {
+     "node": "planner \u203a research",
+     "key": "research",
+     "actor": "agent",
+     "what": "\ud83d\udecf\ufe0f Hotel check-in moved to Thu Mar 11: your flight lands at 03:02 that day, so the hotel is 6 nights instead o",
+     "ms": 2
+    },
+    {
+     "node": "planner \u203a budget_check",
+     "key": "budget_check",
+     "actor": "code",
+     "what": "\ud83d\udcb5 Flight $1,207.68 + hotel $581.14 + sights $463.80 + food ~$840 = $3,092.62 of $1,500 (over by $1,592.62)",
+     "ms": 0
+    },
+    {
+     "node": "waiting for you",
+     "key": "waiting for you",
+     "actor": "human",
+     "what": "paused for your decision",
+     "ms": 0
+    }
+   ],
+   "summary": "LLM calls: 5 | tool calls: 3 | tokens in/out: 9,648/594 | est. cost: $0.0018",
+   "seconds": 8.43,
+   "cost_usd": 0.0018,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Plan London from SFO, March 10 to 17 2027, 2 adults, budget 1500 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Got it: SFO \u2192 London (LHR), Mar 10 \u2013 Mar 17, 2027 (7 nights), 2 adults, budget $1,500.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Thu Mar 11: your flight lands at 03:02 that day, so the hotel is 6 nights instead of 7 ($97 less).",
+     "kwargs": {
+      "notice": true
+     }
+    }
+   ],
+   "state": {
+    "request": {
+     "origin": "SFO",
+     "city": "London",
+     "depart_date": "2027-03-10",
+     "return_date": "2027-03-17",
+     "adults": 2,
+     "budget_usd": 1500
+    },
+    "plan": null,
+    "costs": null,
+    "trip_status": null,
+    "details": null
+   },
+   "pending": {
+    "question": "I couldn't fit this trip in your $1,500 budget. The best plan I found costs $3,092.62 ($1,592.62 over).\n\u2708\ufe0f  Duffel Airways $1,207.68 (nonstop, test-mode price)\n\ud83c\udfe8 Travelodge London City: $97/night, $581 total, rated 4.1\n\ud83d\udccd Day 2 (Thu Mar 11): Buckingham Palace ($49.03/person)\n\ud83d\udccd Day 3 (Fri Mar 12): Tower of London ($49.03/person)\n\ud83d\udccd Day 4 (Sat Mar 13): St. Paul's Cathedral ($35.78/person); Tower Bridge ($23.85/person)\n\ud83d\udccd Day 5 (Sun Mar 14): London Eye ($38.43/person)\n\ud83d\udccd Day 6 (Mon Mar 15): Westminster Abbey ($35.78/person)\n\ud83d\udccd Day 7 (Tue Mar 16): Trafalgar Square (free); Hyde Park (free (usually)); Borough Market (free)\n\ud83d\udcb5 Flight $1,207.68 + hotel $581.14 + sights $463.80 + food ~$840 = $3,092.62 of $1,500 (over by $1,592.62)\nReply with a new budget (e.g. '$3,100'), 'accept' to continue over budget, or 'cancel'.",
+    "kind": "escalation",
+    "costs": {
+     "flight": 1207.68,
+     "hotel": 581.14,
+     "sights": 463.8,
+     "food_estimate": 840.0,
+     "total": 3092.62,
+     "budget": 1500,
+     "remaining": -1592.62
+    },
+    "suggested_budget": 3100
+   }
+  },
+  {
+   "label": "Re-checking with the new budget",
+   "events": [
+    {
+     "node": "planner \u203a escalate",
+     "key": "escalate",
+     "actor": "human",
+     "what": "Raised budget to $3,100",
+     "ms": 3
+    },
+    {
+     "node": "planner \u203a budget_check",
+     "key": "budget_check",
+     "actor": "code",
+     "what": "\ud83d\udcb5 Flight $1,207.68 + hotel $581.14 + sights $463.80 + food ~$840 = $3,092.62 of $3,100 ($7.38 left)",
+     "ms": 0
+    },
+    {
+     "node": "waiting for you",
+     "key": "waiting for you",
+     "actor": "human",
+     "what": "paused for your decision",
+     "ms": 0
+    }
+   ],
+   "summary": "LLM calls: 0 | tool calls: 0 | tokens in/out: 0/0 | est. cost: $0.0000",
+   "seconds": 0.0,
+   "cost_usd": 0.0,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Plan London from SFO, March 10 to 17 2027, 2 adults, budget 1500 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Got it: SFO \u2192 London (LHR), Mar 10 \u2013 Mar 17, 2027 (7 nights), 2 adults, budget $1,500.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Thu Mar 11: your flight lands at 03:02 that day, so the hotel is 6 nights instead of 7 ($97 less).",
+     "kwargs": {
+      "notice": true
+     }
+    },
+    {
+     "type": "ai",
+     "content": "Over budget by $1,592.62 (the best plan costs $3,092.62, your budget is $1,500). Raise the budget, continue over budget, or cancel?",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "Raised budget to $3,100",
+     "kwargs": {
+      "decision": "answer"
+     }
+    }
+   ],
+   "state": {
+    "request": {
+     "origin": "SFO",
+     "city": "London",
+     "depart_date": "2027-03-10",
+     "return_date": "2027-03-17",
+     "adults": 2,
+     "budget_usd": 1500
+    },
+    "plan": null,
+    "costs": null,
+    "trip_status": null,
+    "details": null
+   },
+   "pending": {
+    "question": "Here's your trip plan:\n\u2708\ufe0f  Duffel Airways $1,207.68 (nonstop, test-mode price)\n\ud83c\udfe8 Travelodge London City: $97/night, $581 total, rated 4.1\n\ud83d\udccd Day 2 (Thu Mar 11): Buckingham Palace ($49.03/person)\n\ud83d\udccd Day 3 (Fri Mar 12): Tower of London ($49.03/person)\n\ud83d\udccd Day 4 (Sat Mar 13): St. Paul's Cathedral ($35.78/person); Tower Bridge ($23.85/person)\n\ud83d\udccd Day 5 (Sun Mar 14): London Eye ($38.43/person)\n\ud83d\udccd Day 6 (Mon Mar 15): Westminster Abbey ($35.78/person)\n\ud83d\udccd Day 7 (Tue Mar 16): Trafalgar Square (free); Hyde Park (free (usually)); Borough Market (free)\n\ud83d\udcb5 Flight $1,207.68 + hotel $581.14 + sights $463.80 + food ~$840 = $3,092.62 of $3,100 ($7.38 left)\nReply 'approve', or tell me what to change.",
+    "kind": "review",
+    "request": {
+     "origin": "SFO",
+     "city": "London",
+     "depart_date": "2027-03-10",
+     "return_date": "2027-03-17",
+     "adults": 2,
+     "budget_usd": 3100
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArI15zcyfWqaRmbCb",
+      "airline": "Duffel Airways",
+      "price_total": 1207.68,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChkIn47Qyf_xg-1YGg0vZy8xMWY2NnRibF93EAE",
+      "name": "Travelodge London City",
+      "price_per_night": 97.0,
+      "total_price": 581.14,
+      "rating": 4.1
+     },
+     "sights": [
+      {
+       "name": "Buckingham Palace",
+       "day": 1,
+       "price_usd": 49.03
+      },
+      {
+       "name": "Tower of London",
+       "day": 2,
+       "price_usd": 49.03
+      },
+      {
+       "name": "St. Paul's Cathedral",
+       "day": 3,
+       "price_usd": 35.78
+      },
+      {
+       "name": "Tower Bridge",
+       "day": 3,
+       "price_usd": 23.85
+      },
+      {
+       "name": "London Eye",
+       "day": 4,
+       "price_usd": 38.43
+      },
+      {
+       "name": "Westminster Abbey",
+       "day": 5,
+       "price_usd": 35.78
+      },
+      {
+       "name": "Trafalgar Square",
+       "day": 6,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Hyde Park",
+       "day": 6,
+       "price_usd": null
+      },
+      {
+       "name": "Borough Market",
+       "day": 7,
+       "price_usd": 0.0
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with Duffel Airways for a total of $1207.68, which fits within the budget. The Travelodge London City offers a good balance of comfort and value at $678 for the entire stay. The selected sights provide a mix of iconic landmarks and free attractions, ensuring a rich experience in London while keeping costs manageable."
+    },
+    "costs": {
+     "flight": 1207.68,
+     "hotel": 581.14,
+     "sights": 463.8,
+     "food_estimate": 840.0,
+     "total": 3092.62,
+     "budget": 3100,
+     "remaining": 7.38
+    },
+    "options": {
+     "flights": [
+      {
+       "offer_id": "off_0000BArI15zcyfWqaRmbCb",
+       "airline": "Duffel Airways",
+       "price": 1207.68,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "LHR",
+         "depart": "2027-03-10T06:58:00",
+         "arrive": "2027-03-11T03:02:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "ZZ9368"
+         ]
+        },
+        {
+         "from": "LHR",
+         "to": "SFO",
+         "depart": "2027-03-17T12:23:00",
+         "arrive": "2027-03-17T17:27:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "ZZ9368"
+         ]
+        }
+       ],
+       "sandbox_bookable": true,
+       "expires_at": "2026-09-28T06:25:39.117929Z"
+      },
+      {
+       "offer_id": "off_0000BArI161Os4wkfwc0xC",
+       "airline": "American Airlines",
+       "price": 1261.28,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "LHR",
+         "depart": "2027-03-10T06:58:00",
+         "arrive": "2027-03-11T03:02:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "AA4"
+         ]
+        },
+        {
+         "from": "LHR",
+         "to": "SFO",
+         "depart": "2027-03-17T12:23:00",
+         "arrive": "2027-03-17T17:27:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "AA4"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:39.122628Z"
+      },
+      {
+       "offer_id": "off_0000BArI15zyxLoQbXwsjk",
+       "airline": "British Airways",
+       "price": 1271.62,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "LHR",
+         "depart": "2027-03-10T06:58:00",
+         "arrive": "2027-03-11T03:02:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "BA0109"
+         ]
+        },
+        {
+         "from": "LHR",
+         "to": "SFO",
+         "depart": "2027-03-17T12:23:00",
+         "arrive": "2027-03-17T17:27:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "BA0109"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:39.118233Z"
+      },
+      {
+       "offer_id": "off_0000BArI162So7nUjF6rbc",
+       "airline": "Iberia",
+       "price": 1291.2,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "LHR",
+         "depart": "2027-03-10T06:58:00",
+         "arrive": "2027-03-11T03:02:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "IB3177"
+         ]
+        },
+        {
+         "from": "LHR",
+         "to": "SFO",
+         "depart": "2027-03-17T12:23:00",
+         "arrive": "2027-03-17T17:27:00",
+         "duration_min": 724,
+         "stops": 0,
+         "flights": [
+          "IB3177"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:39.125250Z"
+      },
+      {
+       "offer_id": "off_0000BArI1CK3RdQwDXNzqy",
+       "airline": "Virgin Atlantic",
+       "price": 1780.46,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "LHR",
+         "depart": "2027-03-10T16:40:00",
+         "arrive": "2027-03-11T10:55:00",
+         "duration_min": 615,
+         "stops": 0,
+         "flights": [
+          "VS0020"
+         ]
+        },
+        {
+         "from": "LHR",
+         "to": "SFO",
+         "depart": "2027-03-17T11:50:00",
+         "arrive": "2027-03-17T15:50:00",
+         "duration_min": 660,
+         "stops": 0,
+         "flights": [
+          "VS0019"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:55:40.203188Z"
+      }
+     ],
+     "hotels": [
+      {
+       "hotel_id": "ChgIsOCpkKiY3eraARoLL2cvMXRkZHg3OW4QAQ",
+       "name": "The Rose & Crown, London Bridge (PUBLOVE)",
+       "type": "hotel",
+       "price_per_night": 35,
+       "total_price": 244,
+       "rating": 4.2,
+       "reviews": 1181,
+       "hotel_class": 3,
+       "lat": 51.5038182,
+       "lon": -0.0947954,
+       "amenities": [
+        "Breakfast",
+        "Free Wi-Fi",
+        "Pet-friendly",
+        "Bar",
+        "Restaurant",
+        "Smoke-free property"
+       ],
+       "description": "Traditional pub serving craft beers, burgers, fries & salads, with a backpackers\u2019 hostel above."
+      },
+      {
+       "hotel_id": "ChkQ5pSGlOii4JI5Gg0vZy8xMXo0emd5NXZjEAI",
+       "name": "Central London Room in Oval",
+       "type": "vacation rental",
+       "price_per_night": 73,
+       "total_price": 508,
+       "rating": 4.6,
+       "reviews": 97,
+       "hotel_class": null,
+       "lat": 51.478946685791016,
+       "lon": -0.10723759979009628,
+       "amenities": [
+        "Air conditioning",
+        "Heating",
+        "Ironing board",
+        "Kitchen",
+        "Microwave",
+        "Smoke-free"
+       ],
+       "description": null
+      },
+      {
+       "hotel_id": "ChkQwK2thNXsq9YiGg0vZy8xMW50aHI1d3dtEAI",
+       "name": "Buckingham Palace/Hyde Park near",
+       "type": "vacation rental",
+       "price_per_night": 85,
+       "total_price": 593,
+       "rating": 4.5,
+       "reviews": 137,
+       "hotel_class": null,
+       "lat": 51.48223876953125,
+       "lon": -0.12412122637033463,
+       "amenities": [
+        "Heating",
+        "Ironing board",
+        "Kitchen",
+        "Microwave",
+        "Oven stove",
+        "Smoke-free"
+       ],
+       "description": null
+      },
+      {
+       "hotel_id": "ChkIn47Qyf_xg-1YGg0vZy8xMWY2NnRibF93EAE",
+       "name": "Travelodge London City",
+       "type": "hotel",
+       "price_per_night": 97,
+       "total_price": 678,
+       "rating": 4.1,
+       "reviews": 2909,
+       "hotel_class": 3,
+       "lat": 51.515337099999996,
+       "lon": -0.0748387,
+       "amenities": [
+        "Breakfast ($)",
+        "Wi-Fi ($)",
+        "Air conditioning",
+        "Pet-friendly",
+        "Bar",
+        "Restaurant"
+       ],
+       "description": "Contemporary budget hotel featuring complimentary Wi-Fi & a down-to-earth cafe/bar."
+      },
+      {
+       "hotel_id": "ChYIrIK1s_Hf-arLARoJL20vMDkxZGNfEAE",
+       "name": "The Tower Hotel, by Thistle",
+       "type": "hotel",
+       "price_per_night": 133,
+       "total_price": 931,
+       "rating": 4.1,
+       "reviews": 12456,
+       "hotel_class": 4,
+       "lat": 51.506786,
+       "lon": -0.0739649,
+       "amenities": [
+        "Breakfast ($)",
+        "Free Wi-Fi",
+        "Parking ($)",
+        "Air conditioning",
+        "Fitness center",
+        "Bar"
+       ],
+       "description": "Polished lodging on the banks of the Thames, offering refined dining, 2 bars and afternoon tea."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "label": "Approving your plan",
+   "events": [
+    {
+     "node": "planner \u203a review",
+     "key": "review",
+     "actor": "human",
+     "what": "Picked Duffel Airways ($1,207.68) and Travelodge London City ($581); approved at $3,092.62",
+     "ms": 2
+    },
+    {
+     "node": "planner \u203a approved",
+     "key": "approved",
+     "actor": "code",
+     "what": "\u2705 Plan approved.",
+     "ms": 0
+    },
+    {
+     "node": "planner",
+     "key": "planner",
+     "actor": "agent",
+     "what": "\u2705 Plan approved:",
+     "ms": 1
+    },
+    {
+     "node": "save_profile",
+     "key": "save_profile",
+     "actor": "code",
+     "what": "profile = {'home_airport': 'SFO', 'usual_travelers",
+     "ms": 1
+    }
+   ],
+   "summary": "LLM calls: 0 | tool calls: 0 | tokens in/out: 0/0 | est. cost: $0.0000",
+   "seconds": 0.0,
+   "cost_usd": 0.0,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Plan London from SFO, March 10 to 17 2027, 2 adults, budget 1500 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Got it: SFO \u2192 London (LHR), Mar 10 \u2013 Mar 17, 2027 (7 nights), 2 adults, budget $1,500.",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Thu Mar 11: your flight lands at 03:02 that day, so the hotel is 6 nights instead of 7 ($97 less).",
+     "kwargs": {
+      "notice": true
+     }
+    },
+    {
+     "type": "ai",
+     "content": "Over budget by $1,592.62 (the best plan costs $3,092.62, your budget is $1,500). Raise the budget, continue over budget, or cancel?",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "Raised budget to $3,100",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "Review the plan: approve it, pick other flight or hotel options, or ask for changes.",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "Picked Duffel Airways ($1,207.68) and Travelodge London City ($581); approved at $3,092.62",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "\u2705 Plan approved:\n\u2708\ufe0f  Duffel Airways $1,207.68 (nonstop, test-mode price)\n\ud83c\udfe8 Travelodge London City: $97/night, $581 total, rated 4.1\n\ud83d\udccd Day 2 (Thu Mar 11): Buckingham Palace ($49.03/person)\n\ud83d\udccd Day 3 (Fri Mar 12): Tower of London ($49.03/person)\n\ud83d\udccd Day 4 (Sat Mar 13): St. Paul's Cathedral ($35.78/person); Tower Bridge ($23.85/person)\n\ud83d\udccd Day 5 (Sun Mar 14): London Eye ($38.43/person)\n\ud83d\udccd Day 6 (Mon Mar 15): Westminster Abbey ($35.78/person)\n\ud83d\udccd Day 7 (Tue Mar 16): Trafalgar Square (free); Hyde Park (free (usually)); Borough Market (free)\n\ud83d\udcb5 Flight $1,207.68 + hotel $581.14 + sights $463.80 + food ~$840 = $3,092.62 of $3,100 ($7.38 left)\nSay 'book it' when you're ready.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": {
+     "origin": "SFO",
+     "city": "London",
+     "depart_date": "2027-03-10",
+     "return_date": "2027-03-17",
+     "adults": 2,
+     "budget_usd": 3100
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArI15zcyfWqaRmbCb",
+      "airline": "Duffel Airways",
+      "price_total": 1207.68,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChkIn47Qyf_xg-1YGg0vZy8xMWY2NnRibF93EAE",
+      "name": "Travelodge London City",
+      "price_per_night": 97.0,
+      "total_price": 581.14,
+      "rating": 4.1
+     },
+     "sights": [
+      {
+       "name": "Buckingham Palace",
+       "day": 1,
+       "price_usd": 49.03
+      },
+      {
+       "name": "Tower of London",
+       "day": 2,
+       "price_usd": 49.03
+      },
+      {
+       "name": "St. Paul's Cathedral",
+       "day": 3,
+       "price_usd": 35.78
+      },
+      {
+       "name": "Tower Bridge",
+       "day": 3,
+       "price_usd": 23.85
+      },
+      {
+       "name": "London Eye",
+       "day": 4,
+       "price_usd": 38.43
+      },
+      {
+       "name": "Westminster Abbey",
+       "day": 5,
+       "price_usd": 35.78
+      },
+      {
+       "name": "Trafalgar Square",
+       "day": 6,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Hyde Park",
+       "day": 6,
+       "price_usd": null
+      },
+      {
+       "name": "Borough Market",
+       "day": 7,
+       "price_usd": 0.0
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with Duffel Airways for a total of $1207.68, which fits within the budget. The Travelodge London City offers a good balance of comfort and value at $678 for the entire stay. The selected sights provide a mix of iconic landmarks and free attractions, ensuring a rich experience in London while keeping costs manageable."
+    },
+    "costs": {
+     "flight": 1207.68,
+     "hotel": 581.14,
+     "sights": 463.8,
+     "food_estimate": 840.0,
+     "total": 3092.62,
+     "budget": 3100,
+     "remaining": 7.38
+    },
+    "trip_status": "approved",
+    "details": {
+     "flight": {
+      "offer_id": "off_0000BArI15zcyfWqaRmbCb",
+      "airline": "Duffel Airways",
+      "price": 1207.68,
+      "currency": "USD",
+      "slices": [
+       {
+        "from": "SFO",
+        "to": "LHR",
+        "depart": "2027-03-10T06:58:00",
+        "arrive": "2027-03-11T03:02:00",
+        "duration_min": 724,
+        "stops": 0,
+        "flights": [
+         "ZZ9368"
+        ]
+       },
+       {
+        "from": "LHR",
+        "to": "SFO",
+        "depart": "2027-03-17T12:23:00",
+        "arrive": "2027-03-17T17:27:00",
+        "duration_min": 724,
+        "stops": 0,
+        "flights": [
+         "ZZ9368"
+        ]
+       }
+      ],
+      "sandbox_bookable": true,
+      "expires_at": "2026-09-28T06:25:39.117929Z"
+     },
+     "hotel": {
+      "hotel_id": "ChkIn47Qyf_xg-1YGg0vZy8xMWY2NnRibF93EAE",
+      "name": "Travelodge London City",
+      "type": "hotel",
+      "price_per_night": 97,
+      "total_price": 678,
+      "rating": 4.1,
+      "reviews": 2909,
+      "hotel_class": 3,
+      "lat": 51.515337099999996,
+      "lon": -0.0748387,
+      "amenities": [
+       "Breakfast ($)",
+       "Wi-Fi ($)",
+       "Air conditioning",
+       "Pet-friendly",
+       "Bar",
+       "Restaurant"
+      ],
+      "description": "Contemporary budget hotel featuring complimentary Wi-Fi & a down-to-earth cafe/bar."
+     }
+    }
+   },
+   "pending": null
+  }
+ ]
+}

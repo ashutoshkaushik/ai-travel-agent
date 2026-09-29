@@ -1,0 +1,859 @@
+{
+ "example": "Thinking of Tokyo sometime in December, 2 of us, around 2300 dollars",
+ "recorded": "2026-09-27",
+ "turns": [
+  {
+   "label": "Working on: Thinking of Tokyo sometime in December, 2 of us, around 2300 dollars",
+   "events": [
+    {
+     "node": "load_profile",
+     "key": "load_profile",
+     "actor": "code",
+     "what": "profile = {}",
+     "ms": 1
+    },
+    {
+     "node": "input_guard",
+     "key": "input_guard",
+     "actor": "code",
+     "what": "guard = None",
+     "ms": 0
+    },
+    {
+     "node": "classify_intent",
+     "key": "classify_intent",
+     "actor": "agent",
+     "what": "intent = plan_trip, intent_city = Tokyo",
+     "ms": 650
+    },
+    {
+     "node": "intake \u203a extract",
+     "key": "extract",
+     "actor": "agent",
+     "what": "draft = {'origin': None, 'city': 'Tokyo', 'depar",
+     "ms": 726
+    },
+    {
+     "node": "intake \u203a validate",
+     "key": "validate",
+     "actor": "code",
+     "what": "request = None, problems = ['I still need your departure airport or",
+     "ms": 0
+    },
+    {
+     "node": "waiting for you",
+     "key": "waiting for you",
+     "actor": "human",
+     "what": "paused for your decision",
+     "ms": 0
+    }
+   ],
+   "summary": "LLM calls: 2 | tool calls: 0 | tokens in/out: 732/49 | est. cost: $0.0001",
+   "seconds": 1.38,
+   "cost_usd": 0.00014,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Thinking of Tokyo sometime in December, 2 of us, around 2300 dollars",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": null,
+    "plan": null,
+    "costs": null,
+    "trip_status": null,
+    "details": null
+   },
+   "pending": {
+    "question": "To plan your trip:\n- I still need your departure airport or US city.\n- I still need your exact departure date.\n- I still need your return date or number of nights.",
+    "problems": [
+     "I still need your departure airport or US city.",
+     "I still need your exact departure date.",
+     "I still need your return date or number of nights."
+    ]
+   }
+  },
+  {
+   "label": "Continuing with your answer",
+   "events": [
+    {
+     "node": "intake \u203a ask",
+     "key": "ask",
+     "actor": "human",
+     "what": "From SFO, December 10 to 16",
+     "ms": 5
+    },
+    {
+     "node": "intake \u203a extract",
+     "key": "extract",
+     "actor": "agent",
+     "what": "draft = {'origin': 'SFO', 'city': 'Tokyo', 'depa",
+     "ms": 892
+    },
+    {
+     "node": "intake \u203a validate",
+     "key": "validate",
+     "actor": "code",
+     "what": "request = {'origin': 'SFO', 'city': 'Tokyo', 'depa, problems = []",
+     "ms": 0
+    },
+    {
+     "node": "intake \u203a confirm",
+     "key": "confirm",
+     "actor": "code",
+     "what": "Got it: SFO \u2192 Tokyo (NRT), Dec 10 \u2013 Dec 16, 2026 (6 nights), 2 adults, budget $2,300.",
+     "ms": 0
+    },
+    {
+     "node": "intake",
+     "key": "intake",
+     "actor": "agent",
+     "what": "Got it: SFO \u2192 Tokyo (NRT), Dec 10 \u2013 Dec 16, 2026 (6 nights), 2 adults, budget $2,300.",
+     "ms": 1
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests search_flights, search_hotels, search_top_sights",
+     "ms": 1660
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_top_sights returned",
+     "ms": 3
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_hotels returned",
+     "ms": 121
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_flights returned",
+     "ms": 2593
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "TripPlan returned",
+     "ms": 2926
+    },
+    {
+     "node": "planner \u203a research",
+     "key": "research",
+     "actor": "agent",
+     "what": "\ud83d\udecf\ufe0f Hotel check-in moved to Fri Dec 11: your flight lands at 11:31 that day, so the hotel is 5 nights instead o",
+     "ms": 2
+    },
+    {
+     "node": "planner \u203a budget_check",
+     "key": "budget_check",
+     "actor": "code",
+     "what": "\ud83d\udcb5 Flight $1,218.36 + hotel $651.67 + sights $114.48 + food ~$540 = $2,524.51 of $2,300 (over by $224.51)",
+     "ms": 1
+    },
+    {
+     "node": "planner \u203a replan",
+     "key": "replan",
+     "actor": "code",
+     "what": "\ud83d\udd01 Replanning: hotel must be at most $85/night; flight and sights unchanged.",
+     "ms": 1
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests search_flights, search_hotels, search_top_sights",
+     "ms": 1950
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_hotels returned",
+     "ms": 35
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_top_sights returned",
+     "ms": 0
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_flights returned",
+     "ms": 10
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "TripPlan returned",
+     "ms": 2802
+    },
+    {
+     "node": "planner \u203a research",
+     "key": "research",
+     "actor": "agent",
+     "what": "\ud83d\udecf\ufe0f Hotel check-in moved to Fri Dec 11: your flight lands at 11:31 that day, so the hotel is 5 nights instead o",
+     "ms": 3
+    },
+    {
+     "node": "planner \u203a budget_check",
+     "key": "budget_check",
+     "actor": "code",
+     "what": "\ud83d\udcb5 Flight $1,218.36 + hotel $426.67 + sights $114.48 + food ~$540 = $2,299.51 of $2,300 ($0.49 left)",
+     "ms": 0
+    },
+    {
+     "node": "waiting for you",
+     "key": "waiting for you",
+     "actor": "human",
+     "what": "paused for your decision",
+     "ms": 0
+    }
+   ],
+   "summary": "LLM calls: 5 | tool calls: 6 | tokens in/out: 11,327/996 | est. cost: $0.0023",
+   "seconds": 13.01,
+   "cost_usd": 0.0023,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Thinking of Tokyo sometime in December, 2 of us, around 2300 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "To plan your trip:\n- I still need your departure airport or US city.\n- I still need your exact departure date.\n- I still need your return date or number of nights.",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "From SFO, December 10 to 16",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "Got it: SFO \u2192 Tokyo (NRT), Dec 10 \u2013 Dec 16, 2026 (6 nights), 2 adults, budget $2,300.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Fri Dec 11: your flight lands at 11:31 that day, so the hotel is 5 nights instead of 6 ($130 less).",
+     "kwargs": {
+      "notice": true
+     }
+    },
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Fri Dec 11: your flight lands at 11:31 that day, so the hotel is 5 nights instead of 6 ($85 less).",
+     "kwargs": {
+      "notice": true
+     }
+    }
+   ],
+   "state": {
+    "request": {
+     "origin": "SFO",
+     "city": "Tokyo",
+     "depart_date": "2026-12-10",
+     "return_date": "2026-12-16",
+     "adults": 2,
+     "budget_usd": 2300
+    },
+    "plan": null,
+    "costs": null,
+    "trip_status": null,
+    "details": null
+   },
+   "pending": {
+    "question": "Here's your trip plan:\n\u2708\ufe0f  British Airways $1,218.36 (nonstop, test-mode price)\n\ud83c\udfe8 THE KANZASHI TOKYO ASAKUSA: $85/night, $427 total, rated 4.3\n\ud83d\udccd Day 2 (Fri Dec 11): Sens\u014d-ji (free)\n\ud83d\udccd Day 3 (Sat Dec 12): Tokyo Tower ($9.54/person)\n\ud83d\udccd Day 4 (Sun Dec 13): Meiji Jingu (free)\n\ud83d\udccd Day 5 (Mon Dec 14): Tokyo Skytree ($13.99/person)\n\ud83d\udccd Day 6 (Tue Dec 15): Shinjuku Gyoen National Garden ($3.18/person); teamLab Borderless: MORI Building DIGITAL ART MUSEUM ($30.53/person)\n\ud83d\udcb5 Flight $1,218.36 + hotel $426.67 + sights $114.48 + food ~$540 = $2,299.51 of $2,300 ($0.49 left)\nReply 'approve', or tell me what to change.",
+    "kind": "review",
+    "request": {
+     "origin": "SFO",
+     "city": "Tokyo",
+     "depart_date": "2026-12-10",
+     "return_date": "2026-12-16",
+     "adults": 2,
+     "budget_usd": 2300
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArHzqhCzOwXDwnf03",
+      "airline": "British Airways",
+      "price_total": 1218.36,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChoIir28qKWR6s7vARoNL2cvMTFtOV81ZnFiZBAB",
+      "name": "THE KANZASHI TOKYO ASAKUSA",
+      "price_per_night": 85.0,
+      "total_price": 426.67,
+      "rating": 4.3
+     },
+     "sights": [
+      {
+       "name": "Sens\u014d-ji",
+       "day": 1,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Tokyo Tower",
+       "day": 2,
+       "price_usd": 9.54
+      },
+      {
+       "name": "Meiji Jingu",
+       "day": 3,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Tokyo Skytree",
+       "day": 4,
+       "price_usd": 13.99
+      },
+      {
+       "name": "Shinjuku Gyoen National Garden",
+       "day": 5,
+       "price_usd": 3.18
+      },
+      {
+       "name": "teamLab Borderless: MORI Building DIGITAL ART MUSEUM",
+       "day": 6,
+       "price_usd": 30.53
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with British Airways, ensuring a smooth travel experience. The selected hotel, THE KANZASHI TOKYO ASAKUSA, offers good value at $85 per night, fitting within the budget constraints while providing a comfortable stay. The itinerary includes a mix of free and paid attractions, allowing for a rich experience of Tokyo's culture and sights."
+    },
+    "costs": {
+     "flight": 1218.36,
+     "hotel": 426.67,
+     "sights": 114.48,
+     "food_estimate": 540.0,
+     "total": 2299.51,
+     "budget": 2300,
+     "remaining": 0.49
+    },
+    "options": {
+     "flights": [
+      {
+       "offer_id": "off_0000BArHzqhCzOwXDwnf03",
+       "airline": "British Airways",
+       "price": 1218.36,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "NRT",
+         "depart": "2026-12-10T06:58:00",
+         "arrive": "2026-12-11T11:31:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "BA0109"
+         ]
+        },
+        {
+         "from": "NRT",
+         "to": "SFO",
+         "depart": "2026-12-16T11:36:00",
+         "arrive": "2026-12-16T06:09:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "BA0109"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:25.598618Z"
+      },
+      {
+       "offer_id": "off_0000BArHzqgr0iexCqdNS0",
+       "airline": "American Airlines",
+       "price": 1222.4,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "NRT",
+         "depart": "2026-12-10T06:58:00",
+         "arrive": "2026-12-11T11:31:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "AA4"
+         ]
+        },
+        {
+         "from": "NRT",
+         "to": "SFO",
+         "depart": "2026-12-16T11:36:00",
+         "arrive": "2026-12-16T06:09:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "AA4"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:25.597898Z"
+      },
+      {
+       "offer_id": "off_0000BArHzqgr0iexCqdNQJ",
+       "airline": "Iberia",
+       "price": 1241.98,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "NRT",
+         "depart": "2026-12-10T06:58:00",
+         "arrive": "2026-12-11T11:31:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "IB3177"
+         ]
+        },
+        {
+         "from": "NRT",
+         "to": "SFO",
+         "depart": "2026-12-16T11:36:00",
+         "arrive": "2026-12-16T06:09:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "IB3177"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:25.597043Z"
+      },
+      {
+       "offer_id": "off_0000BArHzqgr0iexCqdNRW",
+       "airline": "Duffel Airways",
+       "price": 1257.36,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "NRT",
+         "depart": "2026-12-10T06:58:00",
+         "arrive": "2026-12-11T11:31:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "ZZ9368"
+         ]
+        },
+        {
+         "from": "NRT",
+         "to": "SFO",
+         "depart": "2026-12-16T11:36:00",
+         "arrive": "2026-12-16T06:09:00",
+         "duration_min": 693,
+         "stops": 0,
+         "flights": [
+          "ZZ9368"
+         ]
+        }
+       ],
+       "sandbox_bookable": true,
+       "expires_at": "2026-09-28T06:25:25.597640Z"
+      },
+      {
+       "offer_id": "off_0000BArI0100gLvNB9fofY",
+       "airline": "JAL",
+       "price": 5920.46,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "SFO",
+         "to": "NRT",
+         "depart": "2026-12-10T11:45:00",
+         "arrive": "2026-12-11T16:00:00",
+         "duration_min": 675,
+         "stops": 0,
+         "flights": [
+          "JL0057"
+         ]
+        },
+        {
+         "from": "NRT",
+         "to": "SFO",
+         "depart": "2026-12-16T17:40:00",
+         "arrive": "2026-12-16T09:55:00",
+         "duration_min": 555,
+         "stops": 0,
+         "flights": [
+          "JL0058"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:55:27.360100Z"
+      }
+     ],
+     "hotels": [
+      {
+       "hotel_id": "ChkQxPyi05eH4MVmGg0vZy8xMW1zOWxjYnlyEAI",
+       "name": "White Terrace Sakurashinmachi",
+       "type": "vacation rental",
+       "price_per_night": 38,
+       "total_price": 230,
+       "rating": 4.3,
+       "reviews": 172,
+       "hotel_class": null,
+       "lat": 35.6323356628418,
+       "lon": 139.65185546875,
+       "amenities": [
+        "Air conditioning",
+        "Heating",
+        "Ironing board",
+        "Kitchen",
+        "Microwave",
+        "Oven stove"
+       ],
+       "description": null
+      },
+      {
+       "hotel_id": "ChkI_o3Yjo7m1fVKGg0vZy8xMXhubXZjbHBiEAE",
+       "name": "Amanek Asakusa Sakurabashi",
+       "type": "hotel",
+       "price_per_night": 61,
+       "total_price": 363,
+       "rating": 4.1,
+       "reviews": 85,
+       "hotel_class": 3,
+       "lat": 35.7181636,
+       "lon": 139.8016889,
+       "amenities": [
+        "Transfer",
+        "Free Wi-Fi",
+        "Restaurant"
+       ],
+       "description": null
+      },
+      {
+       "hotel_id": "ChoIzbaS69TduoLCARoNL2cvMTF2cTZkNngwaxAB",
+       "name": "HOTEL GRAPHY SHIBUYA",
+       "type": "hotel",
+       "price_per_night": 72,
+       "total_price": 434,
+       "rating": 4,
+       "reviews": 633,
+       "hotel_class": 3,
+       "lat": 35.65325000000001,
+       "lon": 139.7071111,
+       "amenities": [
+        "Free Wi-Fi",
+        "Restaurant"
+       ],
+       "description": "Straightforward dorms & private rooms, plus a shared kitchenette, laundry facilities & a cafe/bar."
+      },
+      {
+       "hotel_id": "ChgI4MyEhJ_t7sJgGgwvZy8xMnFnanR5aG4QAQ",
+       "name": "HOTEL GRAPHY NEZU",
+       "type": "hotel",
+       "price_per_night": 74,
+       "total_price": 442,
+       "rating": 4.3,
+       "reviews": 830,
+       "hotel_class": 3,
+       "lat": 35.717207099999996,
+       "lon": 139.7687051,
+       "amenities": [
+        "Free Wi-Fi",
+        "Bar",
+        "Restaurant",
+        "Kid-friendly"
+       ],
+       "description": "Sleek rooms with free Wi-Fi in a chic hotel offering a rooftop terrace & a trendy cafe/bar."
+      },
+      {
+       "hotel_id": "ChoIir28qKWR6s7vARoNL2cvMTFtOV81ZnFiZBAB",
+       "name": "THE KANZASHI TOKYO ASAKUSA",
+       "type": "hotel",
+       "price_per_night": 85,
+       "total_price": 512,
+       "rating": 4.3,
+       "reviews": 861,
+       "hotel_class": 3,
+       "lat": 35.7164206,
+       "lon": 139.7952283,
+       "amenities": [
+        "Free Wi-Fi",
+        "Parking ($)",
+        "Restaurant",
+        "Accessible",
+        "Kid-friendly"
+       ],
+       "description": "Informal, warmly decorated hotel with a cafe/bar, a rooftop terrace & city views."
+      },
+      {
+       "hotel_id": "ChkIx-6o2eLCgdNeGg0vZy8xMWZmbHpoMjMxEAE",
+       "name": "Hamacho Hotel",
+       "type": "hotel",
+       "price_per_night": 130,
+       "total_price": 782,
+       "rating": 4.6,
+       "reviews": 1099,
+       "hotel_class": null,
+       "lat": 35.684640300000005,
+       "lon": 139.78930480000002,
+       "amenities": [
+        "Free Wi-Fi",
+        "Bar",
+        "Restaurant",
+        "Accessible",
+        "Kid-friendly"
+       ],
+       "description": "Minimalist rooms in a contemporary hotel offering a restaurant, a bar & a chocolate shop."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "label": "Approving your plan",
+   "events": [
+    {
+     "node": "planner \u203a review",
+     "key": "review",
+     "actor": "human",
+     "what": "Picked British Airways ($1,218.36) and THE KANZASHI TOKYO ASAKUSA ($427); approved at $2,299.51",
+     "ms": 3
+    },
+    {
+     "node": "planner \u203a approved",
+     "key": "approved",
+     "actor": "code",
+     "what": "\u2705 Plan approved.",
+     "ms": 0
+    },
+    {
+     "node": "planner",
+     "key": "planner",
+     "actor": "agent",
+     "what": "\u2705 Plan approved:",
+     "ms": 1
+    },
+    {
+     "node": "save_profile",
+     "key": "save_profile",
+     "actor": "code",
+     "what": "profile = {'home_airport': 'SFO', 'usual_travelers",
+     "ms": 1
+    }
+   ],
+   "summary": "LLM calls: 0 | tool calls: 0 | tokens in/out: 0/0 | est. cost: $0.0000",
+   "seconds": 0.0,
+   "cost_usd": 0.0,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Thinking of Tokyo sometime in December, 2 of us, around 2300 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "To plan your trip:\n- I still need your departure airport or US city.\n- I still need your exact departure date.\n- I still need your return date or number of nights.",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "From SFO, December 10 to 16",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "Got it: SFO \u2192 Tokyo (NRT), Dec 10 \u2013 Dec 16, 2026 (6 nights), 2 adults, budget $2,300.",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Fri Dec 11: your flight lands at 11:31 that day, so the hotel is 5 nights instead of 6 ($130 less).",
+     "kwargs": {
+      "notice": true
+     }
+    },
+    {
+     "type": "ai",
+     "content": "\ud83d\udecf\ufe0f Hotel check-in moved to Fri Dec 11: your flight lands at 11:31 that day, so the hotel is 5 nights instead of 6 ($85 less).",
+     "kwargs": {
+      "notice": true
+     }
+    },
+    {
+     "type": "ai",
+     "content": "Review the plan: approve it, pick other flight or hotel options, or ask for changes.",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "Picked British Airways ($1,218.36) and THE KANZASHI TOKYO ASAKUSA ($427); approved at $2,299.51",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "\u2705 Plan approved:\n\u2708\ufe0f  British Airways $1,218.36 (nonstop, test-mode price)\n\ud83c\udfe8 THE KANZASHI TOKYO ASAKUSA: $85/night, $427 total, rated 4.3\n\ud83d\udccd Day 2 (Fri Dec 11): Sens\u014d-ji (free)\n\ud83d\udccd Day 3 (Sat Dec 12): Tokyo Tower ($9.54/person)\n\ud83d\udccd Day 4 (Sun Dec 13): Meiji Jingu (free)\n\ud83d\udccd Day 5 (Mon Dec 14): Tokyo Skytree ($13.99/person)\n\ud83d\udccd Day 6 (Tue Dec 15): Shinjuku Gyoen National Garden ($3.18/person); teamLab Borderless: MORI Building DIGITAL ART MUSEUM ($30.53/person)\n\ud83d\udcb5 Flight $1,218.36 + hotel $426.67 + sights $114.48 + food ~$540 = $2,299.51 of $2,300 ($0.49 left)\nSay 'book it' when you're ready.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": {
+     "origin": "SFO",
+     "city": "Tokyo",
+     "depart_date": "2026-12-10",
+     "return_date": "2026-12-16",
+     "adults": 2,
+     "budget_usd": 2300
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArHzqhCzOwXDwnf03",
+      "airline": "British Airways",
+      "price_total": 1218.36,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChoIir28qKWR6s7vARoNL2cvMTFtOV81ZnFiZBAB",
+      "name": "THE KANZASHI TOKYO ASAKUSA",
+      "price_per_night": 85.0,
+      "total_price": 426.67,
+      "rating": 4.3
+     },
+     "sights": [
+      {
+       "name": "Sens\u014d-ji",
+       "day": 1,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Tokyo Tower",
+       "day": 2,
+       "price_usd": 9.54
+      },
+      {
+       "name": "Meiji Jingu",
+       "day": 3,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Tokyo Skytree",
+       "day": 4,
+       "price_usd": 13.99
+      },
+      {
+       "name": "Shinjuku Gyoen National Garden",
+       "day": 5,
+       "price_usd": 3.18
+      },
+      {
+       "name": "teamLab Borderless: MORI Building DIGITAL ART MUSEUM",
+       "day": 6,
+       "price_usd": 30.53
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with British Airways, ensuring a smooth travel experience. The selected hotel, THE KANZASHI TOKYO ASAKUSA, offers good value at $85 per night, fitting within the budget constraints while providing a comfortable stay. The itinerary includes a mix of free and paid attractions, allowing for a rich experience of Tokyo's culture and sights."
+    },
+    "costs": {
+     "flight": 1218.36,
+     "hotel": 426.67,
+     "sights": 114.48,
+     "food_estimate": 540.0,
+     "total": 2299.51,
+     "budget": 2300,
+     "remaining": 0.49
+    },
+    "trip_status": "approved",
+    "details": {
+     "flight": {
+      "offer_id": "off_0000BArHzqhCzOwXDwnf03",
+      "airline": "British Airways",
+      "price": 1218.36,
+      "currency": "USD",
+      "slices": [
+       {
+        "from": "SFO",
+        "to": "NRT",
+        "depart": "2026-12-10T06:58:00",
+        "arrive": "2026-12-11T11:31:00",
+        "duration_min": 693,
+        "stops": 0,
+        "flights": [
+         "BA0109"
+        ]
+       },
+       {
+        "from": "NRT",
+        "to": "SFO",
+        "depart": "2026-12-16T11:36:00",
+        "arrive": "2026-12-16T06:09:00",
+        "duration_min": 693,
+        "stops": 0,
+        "flights": [
+         "BA0109"
+        ]
+       }
+      ],
+      "sandbox_bookable": false,
+      "expires_at": "2026-09-28T06:25:25.598618Z"
+     },
+     "hotel": {
+      "hotel_id": "ChoIir28qKWR6s7vARoNL2cvMTFtOV81ZnFiZBAB",
+      "name": "THE KANZASHI TOKYO ASAKUSA",
+      "type": "hotel",
+      "price_per_night": 85,
+      "total_price": 512,
+      "rating": 4.3,
+      "reviews": 861,
+      "hotel_class": 3,
+      "lat": 35.7164206,
+      "lon": 139.7952283,
+      "amenities": [
+       "Free Wi-Fi",
+       "Parking ($)",
+       "Restaurant",
+       "Accessible",
+       "Kid-friendly"
+      ],
+      "description": "Informal, warmly decorated hotel with a cafe/bar, a rooftop terrace & city views."
+     }
+    }
+   },
+   "pending": null
+  }
+ ]
+}

@@ -1,0 +1,908 @@
+{
+ "example": "Plan a trip to Paris from JFK, November 5 to 10, 2 adults, budget 5000 dollars",
+ "recorded": "2026-09-27",
+ "turns": [
+  {
+   "label": "Working on: Plan a trip to Paris from JFK, November 5 to 10, 2 adults, budget 5000\u2026",
+   "events": [
+    {
+     "node": "load_profile",
+     "key": "load_profile",
+     "actor": "code",
+     "what": "profile = {}",
+     "ms": 3
+    },
+    {
+     "node": "input_guard",
+     "key": "input_guard",
+     "actor": "code",
+     "what": "guard = None",
+     "ms": 0
+    },
+    {
+     "node": "classify_intent",
+     "key": "classify_intent",
+     "actor": "agent",
+     "what": "intent = plan_trip, intent_city = Paris",
+     "ms": 1073
+    },
+    {
+     "node": "intake \u203a extract",
+     "key": "extract",
+     "actor": "agent",
+     "what": "draft = {'origin': 'JFK', 'city': 'Paris', 'depa",
+     "ms": 899
+    },
+    {
+     "node": "intake \u203a validate",
+     "key": "validate",
+     "actor": "code",
+     "what": "request = {'origin': 'JFK', 'city': 'Paris', 'depa, problems = []",
+     "ms": 0
+    },
+    {
+     "node": "intake \u203a confirm",
+     "key": "confirm",
+     "actor": "code",
+     "what": "Got it: JFK \u2192 Paris (CDG), Nov 05 \u2013 Nov 10, 2026 (5 nights), 2 adults, budget $5,000.",
+     "ms": 0
+    },
+    {
+     "node": "intake",
+     "key": "intake",
+     "actor": "agent",
+     "what": "Got it: JFK \u2192 Paris (CDG), Nov 05 \u2013 Nov 10, 2026 (5 nights), 2 adults, budget $5,000.",
+     "ms": 1
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests search_flights, search_hotels, search_top_sights",
+     "ms": 1907
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_top_sights returned",
+     "ms": 6
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_flights returned",
+     "ms": 3565
+    },
+    {
+     "node": "planner \u203a research \u203a tools",
+     "key": "tools",
+     "actor": "code",
+     "what": "search_hotels returned",
+     "ms": 575
+    },
+    {
+     "node": "planner \u203a research \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "TripPlan returned",
+     "ms": 2787
+    },
+    {
+     "node": "planner \u203a research",
+     "key": "research",
+     "actor": "agent",
+     "what": "\ud83d\udd0d Research attempt 1: Duffel Airways $840.66, Novotel Suites Paris Stade de France $110/night, 5 sights",
+     "ms": 2
+    },
+    {
+     "node": "planner \u203a budget_check",
+     "key": "budget_check",
+     "actor": "code",
+     "what": "\ud83d\udcb5 Flight $840.66 + hotel $548.00 + sights $189.18 + food ~$600 = $2,177.84 of $5,000 ($2,822.16 left)",
+     "ms": 0
+    },
+    {
+     "node": "waiting for you",
+     "key": "waiting for you",
+     "actor": "human",
+     "what": "paused for your decision",
+     "ms": 0
+    }
+   ],
+   "summary": "LLM calls: 4 | tool calls: 3 | tokens in/out: 6,159/539 | est. cost: $0.0012",
+   "seconds": 10.82,
+   "cost_usd": 0.00125,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Plan a trip to Paris from JFK, November 5 to 10, 2 adults, budget 5000 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Got it: JFK \u2192 Paris (CDG), Nov 05 \u2013 Nov 10, 2026 (5 nights), 2 adults, budget $5,000.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": {
+     "origin": "JFK",
+     "city": "Paris",
+     "depart_date": "2026-11-05",
+     "return_date": "2026-11-10",
+     "adults": 2,
+     "budget_usd": 5000
+    },
+    "plan": null,
+    "costs": null,
+    "trip_status": null,
+    "details": null
+   },
+   "pending": {
+    "question": "Here's your trip plan:\n\u2708\ufe0f  Duffel Airways $840.66 (nonstop, test-mode price)\n\ud83c\udfe8 Novotel Suites Paris Stade de France: $110/night, $548 total, rated 4.3\n\ud83d\udccd Day 2 (Fri Nov 6): Eiffel Tower ($16.91/person)\n\ud83d\udccd Day 3 (Sat Nov 7): Louvre Museum ($36.56/person)\n\ud83d\udccd Day 4 (Sun Nov 8): Notre-Dame Cathedral of Paris (free); Arc de Triomphe ($25.13/person)\n\ud83d\udccd Day 5 (Mon Nov 9): Mus\u00e9e d'Orsay ($15.99/person)\n\ud83d\udcb5 Flight $840.66 + hotel $548.00 + sights $189.18 + food ~$600 = $2,177.84 of $5,000 ($2,822.16 left)\nReply 'approve', or tell me what to change.",
+    "kind": "review",
+    "request": {
+     "origin": "JFK",
+     "city": "Paris",
+     "depart_date": "2026-11-05",
+     "return_date": "2026-11-10",
+     "adults": 2,
+     "budget_usd": 5000
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+      "airline": "Duffel Airways",
+      "price_total": 840.66,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+      "name": "Novotel Suites Paris Stade de France",
+      "price_per_night": 110.0,
+      "total_price": 548.0,
+      "rating": 4.3
+     },
+     "sights": [
+      {
+       "name": "Eiffel Tower",
+       "day": 2,
+       "price_usd": 16.91
+      },
+      {
+       "name": "Louvre Museum",
+       "day": 3,
+       "price_usd": 36.56
+      },
+      {
+       "name": "Notre-Dame Cathedral of Paris",
+       "day": 4,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Arc de Triomphe",
+       "day": 4,
+       "price_usd": 25.13
+      },
+      {
+       "name": "Mus\u00e9e d'Orsay",
+       "day": 5,
+       "price_usd": 15.99
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with Duffel Airways at a reasonable price of $840.66 for two adults. The Novotel Suites Paris Stade de France offers a good balance of comfort and value at $110 per night, totaling $548 for the stay. The selected sights provide a mix of iconic attractions and free options, ensuring a rich experience in Paris while staying within the budget."
+    },
+    "costs": {
+     "flight": 840.66,
+     "hotel": 548.0,
+     "sights": 189.18,
+     "food_estimate": 600.0,
+     "total": 2177.84,
+     "budget": 5000,
+     "remaining": 2822.16
+    },
+    "options": {
+     "flights": [
+      {
+       "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+       "airline": "Duffel Airways",
+       "price": 840.66,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "JFK",
+         "to": "CDG",
+         "depart": "2026-11-05T03:05:00",
+         "arrive": "2026-11-05T17:26:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "ZZ9368"
+         ]
+        },
+        {
+         "from": "CDG",
+         "to": "JFK",
+         "depart": "2026-11-10T06:58:00",
+         "arrive": "2026-11-10T09:19:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "ZZ9368"
+         ]
+        }
+       ],
+       "sandbox_bookable": true,
+       "expires_at": "2026-09-28T06:25:12.374477Z"
+      },
+      {
+       "offer_id": "off_0000BArHyd5i5PNsjvg9cR",
+       "airline": "Iberia",
+       "price": 846.72,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "JFK",
+         "to": "CDG",
+         "depart": "2026-11-05T03:05:00",
+         "arrive": "2026-11-05T17:26:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "IB3177"
+         ]
+        },
+        {
+         "from": "CDG",
+         "to": "JFK",
+         "depart": "2026-11-10T06:58:00",
+         "arrive": "2026-11-10T09:19:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "IB3177"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:12.375999Z"
+      },
+      {
+       "offer_id": "off_0000BArHyd6Q2lx2m80iiu",
+       "airline": "American Airlines",
+       "price": 864.46,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "JFK",
+         "to": "CDG",
+         "depart": "2026-11-05T03:05:00",
+         "arrive": "2026-11-05T17:26:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "AA4"
+         ]
+        },
+        {
+         "from": "CDG",
+         "to": "JFK",
+         "depart": "2026-11-10T06:58:00",
+         "arrive": "2026-11-10T09:19:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "AA4"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:12.377886Z"
+      },
+      {
+       "offer_id": "off_0000BArHyd5i5PNsjvg9cL",
+       "airline": "British Airways",
+       "price": 871.34,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "JFK",
+         "to": "CDG",
+         "depart": "2026-11-05T03:05:00",
+         "arrive": "2026-11-05T17:26:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "BA0109"
+         ]
+        },
+        {
+         "from": "CDG",
+         "to": "JFK",
+         "depart": "2026-11-10T06:58:00",
+         "arrive": "2026-11-10T09:19:00",
+         "duration_min": 501,
+         "stops": 0,
+         "flights": [
+          "BA0109"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:25:12.375558Z"
+      },
+      {
+       "offer_id": "off_0000BArHytrniNMKliImnI",
+       "airline": "Virgin Atlantic",
+       "price": 1534.86,
+       "currency": "USD",
+       "slices": [
+        {
+         "from": "JFK",
+         "to": "CDG",
+         "depart": "2026-11-05T19:00:00",
+         "arrive": "2026-11-06T08:30:00",
+         "duration_min": 450,
+         "stops": 0,
+         "flights": [
+          "VS3972"
+         ]
+        },
+        {
+         "from": "CDG",
+         "to": "JFK",
+         "depart": "2026-11-10T14:40:00",
+         "arrive": "2026-11-10T17:15:00",
+         "duration_min": 515,
+         "stops": 0,
+         "flights": [
+          "VS3907"
+         ]
+        }
+       ],
+       "sandbox_bookable": false,
+       "expires_at": "2026-09-28T06:55:15.172246Z"
+      }
+     ],
+     "hotels": [
+      {
+       "hotel_id": "ChoIuamlo-iVpL_OARoNL2cvMTFoNHRydHdmYxAB",
+       "name": "MEININGER Hotel Paris Porte de Vincennes",
+       "type": "hotel",
+       "price_per_night": 56,
+       "total_price": 280,
+       "rating": 4.3,
+       "reviews": 5925,
+       "hotel_class": 2,
+       "lat": 48.8438355,
+       "lon": 2.4131508,
+       "amenities": [
+        "Breakfast ($)",
+        "Free Wi-Fi",
+        "Pet-friendly",
+        "Smoke-free property"
+       ],
+       "description": "Laid-back hotel offering simply furnished rooms, a shared kitchen & a bar, plus a game room."
+      },
+      {
+       "hotel_id": "ChkI7_q93r2s8vwRGg0vZy8xMWI2d20xeTBqEAE",
+       "name": "Generator Paris",
+       "type": "hotel",
+       "price_per_night": 59,
+       "total_price": 296,
+       "rating": 4.1,
+       "reviews": 9480,
+       "hotel_class": null,
+       "lat": 48.878247599999995,
+       "lon": 2.3696032,
+       "amenities": [
+        "Breakfast ($)",
+        "Free Wi-Fi",
+        "Parking ($)",
+        "Air conditioning",
+        "Pet-friendly",
+        "Bar"
+       ],
+       "description": "Trendy hostel offering stylish rooms & streamlined dorms, plus a rooftop terrace & a vibrant eatery."
+      },
+      {
+       "hotel_id": "ChcIhpronI2bp7cBGgsvZy8xdmc2dDB6NRAB",
+       "name": "H\u00f4tel Atrium by HappyCulture",
+       "type": "hotel",
+       "price_per_night": 97,
+       "total_price": 485,
+       "rating": 4.5,
+       "reviews": 1048,
+       "hotel_class": 3,
+       "lat": 48.8669048,
+       "lon": 2.2208031999999998,
+       "amenities": [
+        "Breakfast ($)",
+        "Free Wi-Fi",
+        "Parking ($)",
+        "Air conditioning",
+        "Pet-friendly",
+        "Fitness center"
+       ],
+       "description": "Airy rooms & suites in a contemporary hotel offering a bar & a rooftop terrace with Paris views."
+      },
+      {
+       "hotel_id": "ChkInMKgie3-lY1lGg0vZy8xMXJ0X3M0dno0EAE",
+       "name": "The People",
+       "type": "hotel",
+       "price_per_night": 99,
+       "total_price": 494,
+       "rating": 4,
+       "reviews": 1919,
+       "hotel_class": null,
+       "lat": 48.8501611,
+       "lon": 2.3628378999999997,
+       "amenities": [
+        "Breakfast ($)",
+        "Free Wi-Fi",
+        "Parking ($)",
+        "Bar",
+        "Restaurant",
+        "Kitchen in some rooms"
+       ],
+       "description": "Sleek dorms & rooms, some with balconies, in a chic hostel featuring a restaurant/bar."
+      },
+      {
+       "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+       "name": "Novotel Suites Paris Stade de France",
+       "type": "hotel",
+       "price_per_night": 110,
+       "total_price": 548,
+       "rating": 4.3,
+       "reviews": 1431,
+       "hotel_class": 4,
+       "lat": 48.923648199999995,
+       "lon": 2.3629501000000004,
+       "amenities": [
+        "Breakfast ($)",
+        "Free Wi-Fi",
+        "Parking ($)",
+        "Air conditioning",
+        "Pet-friendly",
+        "Fitness center"
+       ],
+       "description": "Contemporary all-suite lodging with Wi-Fi, a bar & a 24/7 pantry, plus parking."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "label": "Approving your plan",
+   "events": [
+    {
+     "node": "planner \u203a review",
+     "key": "review",
+     "actor": "human",
+     "what": "Picked Duffel Airways ($840.66) and Novotel Suites Paris Stade de France ($548); approved at $2,177.84",
+     "ms": 3
+    },
+    {
+     "node": "planner \u203a approved",
+     "key": "approved",
+     "actor": "code",
+     "what": "\u2705 Plan approved.",
+     "ms": 0
+    },
+    {
+     "node": "planner",
+     "key": "planner",
+     "actor": "agent",
+     "what": "\u2705 Plan approved:",
+     "ms": 1
+    },
+    {
+     "node": "save_profile",
+     "key": "save_profile",
+     "actor": "code",
+     "what": "profile = {'home_airport': 'JFK', 'usual_travelers",
+     "ms": 1
+    }
+   ],
+   "summary": "LLM calls: 0 | tool calls: 0 | tokens in/out: 0/0 | est. cost: $0.0000",
+   "seconds": 0.0,
+   "cost_usd": 0.0,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Plan a trip to Paris from JFK, November 5 to 10, 2 adults, budget 5000 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Got it: JFK \u2192 Paris (CDG), Nov 05 \u2013 Nov 10, 2026 (5 nights), 2 adults, budget $5,000.",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Review the plan: approve it, pick other flight or hotel options, or ask for changes.",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "Picked Duffel Airways ($840.66) and Novotel Suites Paris Stade de France ($548); approved at $2,177.84",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "\u2705 Plan approved:\n\u2708\ufe0f  Duffel Airways $840.66 (nonstop, test-mode price)\n\ud83c\udfe8 Novotel Suites Paris Stade de France: $110/night, $548 total, rated 4.3\n\ud83d\udccd Day 2 (Fri Nov 6): Eiffel Tower ($16.91/person)\n\ud83d\udccd Day 3 (Sat Nov 7): Louvre Museum ($36.56/person)\n\ud83d\udccd Day 4 (Sun Nov 8): Notre-Dame Cathedral of Paris (free); Arc de Triomphe ($25.13/person)\n\ud83d\udccd Day 5 (Mon Nov 9): Mus\u00e9e d'Orsay ($15.99/person)\n\ud83d\udcb5 Flight $840.66 + hotel $548.00 + sights $189.18 + food ~$600 = $2,177.84 of $5,000 ($2,822.16 left)\nSay 'book it' when you're ready.",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": {
+     "origin": "JFK",
+     "city": "Paris",
+     "depart_date": "2026-11-05",
+     "return_date": "2026-11-10",
+     "adults": 2,
+     "budget_usd": 5000
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+      "airline": "Duffel Airways",
+      "price_total": 840.66,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+      "name": "Novotel Suites Paris Stade de France",
+      "price_per_night": 110.0,
+      "total_price": 548.0,
+      "rating": 4.3
+     },
+     "sights": [
+      {
+       "name": "Eiffel Tower",
+       "day": 2,
+       "price_usd": 16.91
+      },
+      {
+       "name": "Louvre Museum",
+       "day": 3,
+       "price_usd": 36.56
+      },
+      {
+       "name": "Notre-Dame Cathedral of Paris",
+       "day": 4,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Arc de Triomphe",
+       "day": 4,
+       "price_usd": 25.13
+      },
+      {
+       "name": "Mus\u00e9e d'Orsay",
+       "day": 5,
+       "price_usd": 15.99
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with Duffel Airways at a reasonable price of $840.66 for two adults. The Novotel Suites Paris Stade de France offers a good balance of comfort and value at $110 per night, totaling $548 for the stay. The selected sights provide a mix of iconic attractions and free options, ensuring a rich experience in Paris while staying within the budget."
+    },
+    "costs": {
+     "flight": 840.66,
+     "hotel": 548.0,
+     "sights": 189.18,
+     "food_estimate": 600.0,
+     "total": 2177.84,
+     "budget": 5000,
+     "remaining": 2822.16
+    },
+    "trip_status": "approved",
+    "details": {
+     "flight": {
+      "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+      "airline": "Duffel Airways",
+      "price": 840.66,
+      "currency": "USD",
+      "slices": [
+       {
+        "from": "JFK",
+        "to": "CDG",
+        "depart": "2026-11-05T03:05:00",
+        "arrive": "2026-11-05T17:26:00",
+        "duration_min": 501,
+        "stops": 0,
+        "flights": [
+         "ZZ9368"
+        ]
+       },
+       {
+        "from": "CDG",
+        "to": "JFK",
+        "depart": "2026-11-10T06:58:00",
+        "arrive": "2026-11-10T09:19:00",
+        "duration_min": 501,
+        "stops": 0,
+        "flights": [
+         "ZZ9368"
+        ]
+       }
+      ],
+      "sandbox_bookable": true,
+      "expires_at": "2026-09-28T06:25:12.374477Z"
+     },
+     "hotel": {
+      "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+      "name": "Novotel Suites Paris Stade de France",
+      "type": "hotel",
+      "price_per_night": 110,
+      "total_price": 548,
+      "rating": 4.3,
+      "reviews": 1431,
+      "hotel_class": 4,
+      "lat": 48.923648199999995,
+      "lon": 2.3629501000000004,
+      "amenities": [
+       "Breakfast ($)",
+       "Free Wi-Fi",
+       "Parking ($)",
+       "Air conditioning",
+       "Pet-friendly",
+       "Fitness center"
+      ],
+      "description": "Contemporary all-suite lodging with Wi-Fi, a bar & a 24/7 pantry, plus parking."
+     }
+    }
+   },
+   "pending": null
+  },
+  {
+   "label": "Working on: book it",
+   "events": [
+    {
+     "node": "load_profile",
+     "key": "load_profile",
+     "actor": "code",
+     "what": "profile = {'home_airport': 'JFK', 'usual_travelers",
+     "ms": 1
+    },
+    {
+     "node": "input_guard",
+     "key": "input_guard",
+     "actor": "code",
+     "what": "guard = None",
+     "ms": 1
+    },
+    {
+     "node": "classify_intent",
+     "key": "classify_intent",
+     "actor": "agent",
+     "what": "intent = book, intent_city = Paris",
+     "ms": 741
+    },
+    {
+     "node": "booking \u203a model",
+     "key": "model",
+     "actor": "agent",
+     "what": "requests book_flight, book_hotel",
+     "ms": 1572
+    },
+    {
+     "node": "waiting for you",
+     "key": "waiting for you",
+     "actor": "human",
+     "what": "paused for your decision",
+     "ms": 0
+    }
+   ],
+   "summary": "LLM calls: 2 | tool calls: 0 | tokens in/out: 773/180 | est. cost: $0.0002",
+   "seconds": 2.32,
+   "cost_usd": 0.00022,
+   "messages": [
+    {
+     "type": "human",
+     "content": "Plan a trip to Paris from JFK, November 5 to 10, 2 adults, budget 5000 dollars",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Got it: JFK \u2192 Paris (CDG), Nov 05 \u2013 Nov 10, 2026 (5 nights), 2 adults, budget $5,000.",
+     "kwargs": {}
+    },
+    {
+     "type": "ai",
+     "content": "Review the plan: approve it, pick other flight or hotel options, or ask for changes.",
+     "kwargs": {
+      "decision": "question"
+     }
+    },
+    {
+     "type": "human",
+     "content": "Picked Duffel Airways ($840.66) and Novotel Suites Paris Stade de France ($548); approved at $2,177.84",
+     "kwargs": {
+      "decision": "answer"
+     }
+    },
+    {
+     "type": "ai",
+     "content": "\u2705 Plan approved:\n\u2708\ufe0f  Duffel Airways $840.66 (nonstop, test-mode price)\n\ud83c\udfe8 Novotel Suites Paris Stade de France: $110/night, $548 total, rated 4.3\n\ud83d\udccd Day 2 (Fri Nov 6): Eiffel Tower ($16.91/person)\n\ud83d\udccd Day 3 (Sat Nov 7): Louvre Museum ($36.56/person)\n\ud83d\udccd Day 4 (Sun Nov 8): Notre-Dame Cathedral of Paris (free); Arc de Triomphe ($25.13/person)\n\ud83d\udccd Day 5 (Mon Nov 9): Mus\u00e9e d'Orsay ($15.99/person)\n\ud83d\udcb5 Flight $840.66 + hotel $548.00 + sights $189.18 + food ~$600 = $2,177.84 of $5,000 ($2,822.16 left)\nSay 'book it' when you're ready.",
+     "kwargs": {}
+    },
+    {
+     "type": "human",
+     "content": "book it",
+     "kwargs": {}
+    }
+   ],
+   "paused_decisions": [],
+   "state": {
+    "request": {
+     "origin": "JFK",
+     "city": "Paris",
+     "depart_date": "2026-11-05",
+     "return_date": "2026-11-10",
+     "adults": 2,
+     "budget_usd": 5000
+    },
+    "plan": {
+     "flight": {
+      "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+      "airline": "Duffel Airways",
+      "price_total": 840.66,
+      "nonstop": true
+     },
+     "hotel": {
+      "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+      "name": "Novotel Suites Paris Stade de France",
+      "price_per_night": 110.0,
+      "total_price": 548.0,
+      "rating": 4.3
+     },
+     "sights": [
+      {
+       "name": "Eiffel Tower",
+       "day": 2,
+       "price_usd": 16.91
+      },
+      {
+       "name": "Louvre Museum",
+       "day": 3,
+       "price_usd": 36.56
+      },
+      {
+       "name": "Notre-Dame Cathedral of Paris",
+       "day": 4,
+       "price_usd": 0.0
+      },
+      {
+       "name": "Arc de Triomphe",
+       "day": 4,
+       "price_usd": 25.13
+      },
+      {
+       "name": "Mus\u00e9e d'Orsay",
+       "day": 5,
+       "price_usd": 15.99
+      }
+     ],
+     "rationale": "This trip plan includes a nonstop flight with Duffel Airways at a reasonable price of $840.66 for two adults. The Novotel Suites Paris Stade de France offers a good balance of comfort and value at $110 per night, totaling $548 for the stay. The selected sights provide a mix of iconic attractions and free options, ensuring a rich experience in Paris while staying within the budget."
+    },
+    "costs": {
+     "flight": 840.66,
+     "hotel": 548.0,
+     "sights": 189.18,
+     "food_estimate": 600.0,
+     "total": 2177.84,
+     "budget": 5000,
+     "remaining": 2822.16
+    },
+    "trip_status": "approved",
+    "details": {
+     "flight": {
+      "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+      "airline": "Duffel Airways",
+      "price": 840.66,
+      "currency": "USD",
+      "slices": [
+       {
+        "from": "JFK",
+        "to": "CDG",
+        "depart": "2026-11-05T03:05:00",
+        "arrive": "2026-11-05T17:26:00",
+        "duration_min": 501,
+        "stops": 0,
+        "flights": [
+         "ZZ9368"
+        ]
+       },
+       {
+        "from": "CDG",
+        "to": "JFK",
+        "depart": "2026-11-10T06:58:00",
+        "arrive": "2026-11-10T09:19:00",
+        "duration_min": 501,
+        "stops": 0,
+        "flights": [
+         "ZZ9368"
+        ]
+       }
+      ],
+      "sandbox_bookable": true,
+      "expires_at": "2026-09-28T06:25:12.374477Z"
+     },
+     "hotel": {
+      "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+      "name": "Novotel Suites Paris Stade de France",
+      "type": "hotel",
+      "price_per_night": 110,
+      "total_price": 548,
+      "rating": 4.3,
+      "reviews": 1431,
+      "hotel_class": 4,
+      "lat": 48.923648199999995,
+      "lon": 2.3629501000000004,
+      "amenities": [
+       "Breakfast ($)",
+       "Free Wi-Fi",
+       "Parking ($)",
+       "Air conditioning",
+       "Pet-friendly",
+       "Fitness center"
+      ],
+      "description": "Contemporary all-suite lodging with Wi-Fi, a bar & a 24/7 pantry, plus parking."
+     }
+    }
+   },
+   "pending": {
+    "action_requests": [
+     {
+      "name": "book_flight",
+      "args": {
+       "offer_id": "off_0000BArHyd5M6j6IipVs3y",
+       "airline": "Duffel Airways",
+       "price_total": 840.66,
+       "passengers": 2
+      },
+      "description": "Book flight: Duffel Airways for 2 passenger(s), $840.66 total (offer off_0000BArHyd5M6j6IipVs3y). Sandbox booking, no real charge."
+     },
+     {
+      "name": "book_hotel",
+      "args": {
+       "hotel_id": "ChkI1N6v0cC4pfmpARoML2cvMTJxNHhyNHh0EAE",
+       "hotel_name": "Novotel Suites Paris Stade de France",
+       "check_in": "2026-11-05",
+       "check_out": "2026-11-10",
+       "guests": 2,
+       "total_price": 548.0
+      },
+      "description": "Book hotel: Novotel Suites Paris Stade de France, 2026-11-05 to 2026-11-10, 2 guest(s), $548.00 total. Sandbox booking, no real charge."
+     }
+    ],
+    "review_configs": [
+     {
+      "action_name": "book_flight",
+      "allowed_decisions": [
+       "approve",
+       "edit",
+       "reject"
+      ]
+     },
+     {
+      "action_name": "book_hotel",
+      "allowed_decisions": [
+       "approve",
+       "edit",
+       "reject"
+      ]
+     }
+    ]
+   }
+  }
+ ]
+}

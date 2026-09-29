@@ -1,0 +1,42 @@
+# Site theme : a warm, editorial look (serif headings, clean sans UI,
+# with separate light and dark palettes that follow the visitor's system setting.
+
+[server]
+runOnSave = true
+
+[theme]
+font = "Hanken Grotesk:https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Source Serif 4:https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap, serif"
+codeFont = "IBM Plex Mono:https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap, monospace"
+headingFontWeights = [600, 600, 600, 500, 500, 500]
+baseFontSize = 15
+baseRadius = "0.6rem"
+buttonRadius = "0.6rem"
+showSidebarBorder = true
+# Validated categorical palette (dataviz reference slots 1-8)
+chartCategoricalColors = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#4a3aa7", "#e34948"]
+
+[theme.light]
+primaryColor = "#C2603E"
+backgroundColor = "#FAF9F5"
+secondaryBackgroundColor = "#F0EEE6"
+textColor = "#1F1E1D"
+linkColor = "#A94F30"
+borderColor = "#E3DFD3"
+codeBackgroundColor = "#F0EEE6"
+
+[theme.light.sidebar]
+backgroundColor = "#F3F1EA"
+
+[theme.dark]
+primaryColor = "#D97757"
+backgroundColor = "#262624"
+secondaryBackgroundColor = "#30302E"
+textColor = "#F2F0E8"
+linkColor = "#E58C6D"
+borderColor = "#3E3D39"
+codeBackgroundColor = "#30302E"
+chartCategoricalColors = ["#3987e5", "#d95926", "#199e70", "#c98500", "#d55181", "#008300", "#9085e9", "#e66767"]
+
+[theme.dark.sidebar]
+backgroundColor = "#1F1E1D"

@@ -62,6 +62,7 @@ def test_the_app_is_scored_from_code_not_text():
 
 def test_results_are_cached_per_request(tmp_path, monkeypatch):
     monkeypatch.setattr(compare, "COMPARE_CACHE", tmp_path)
+    monkeypatch.setattr(compare, "RECORDED", tmp_path / "recorded")  # ignore the committed recordings
     calls, real_run_l1 = [], compare.run_l1
 
     def fake_l1(text, stats: RunStats, llm=None):

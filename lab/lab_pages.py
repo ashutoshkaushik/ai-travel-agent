@@ -12,7 +12,7 @@ from langchain_core.utils.function_calling import convert_to_openai_tool
 from lab.learn import LEARN, learn_section
 from lab.nav import tour_footer
 from travel_planner.cities import SUPPORTED_CITIES
-from travel_planner.config import REPO_URL
+from travel_planner.config import LIVE, REPO_URL
 from ui.graphs import graph_dot, legend_html
 from ui.text import safe_html, safe_md
 
@@ -64,6 +64,16 @@ def key_code(key: str) -> None:
                 st.caption(where)
 
 
+def live_button(label: str, **kwargs) -> bool:
+    """A button that calls a paid API. On a keyless deployment it is shown disabled, with the reason."""
+    if LIVE:
+        return st.button(label, **kwargs)
+    st.button(label, disabled=True, **kwargs)
+    st.caption("This live demo needs an API key, and this deployment runs on recorded runs only. "
+               "Run the app locally with your own keys to try it.")
+    return False
+
+
 def header(key: str, title: str, lede: str) -> None:
     step, total = list(LAB_PAGES).index(key) + 1, len(LAB_PAGES)
     st.markdown("<div class='eyebrow'>Agent Lab</div>", unsafe_allow_html=True)
@@ -93,7 +103,7 @@ def tools_page() -> None:
     st.code(json.dumps(convert_to_openai_tool(tool), indent=2), language="json")
     st.markdown("#### Try a tool (no LLM involved)")
     city = st.selectbox("City", ["Tokyo", "Rome", "Paris", "London", "Kyoto"], key="tool_city")
-    if st.button("Run search_top_sights", type="primary"):
+    if live_button("Run search_top_sights", type="primary"):
         st.json(search_top_sights.invoke({"city": city, "max_results": 5}))
     st.markdown("| | Raw API response | What the LLM sees |\n|---|---|---|\n"
                 "| Duffel flight search | 806 KB, ~106 offers | ~1.5 KB, 5 offers |\n"
@@ -115,7 +125,7 @@ def loop_page() -> None:
                "when the model answers in plain text.")
     st.markdown("#### Run it (about \\$0.001)")
     question = st.text_input("Question", "Find the cheapest nonstop flight from SFO to Tokyo on 2026-12-06 and the top 3 sights")
-    if st.button("Run the agent", type="primary"):
+    if live_button("Run the agent", type="primary"):
         from langchain.messages import HumanMessage
         from travel_planner.trace import RunStats
         stats = RunStats()
@@ -165,7 +175,7 @@ def structured_page() -> None:
     header("structured", "Structured output and validation", "The LLM fills a typed draft from free text; plain code "
            "decides whether it's a valid trip, and writes the follow-up question itself.")
     text = st.text_input("Describe a trip in your own words", "Tokyo in December for 2 people, budget 4k")
-    if st.button("Extract and validate (about \\$0.0001)", type="primary"):
+    if live_button("Extract and validate (about \\$0.0001)", type="primary"):
         from datetime import date
 
         from langchain.messages import HumanMessage, SystemMessage
@@ -265,7 +275,12 @@ def rag_page() -> None:
     c1, c2 = st.columns([3, 1])
     query = c1.text_input("Ask the guides (retrieval only: embeddings, no chat model)", "Can I chew gum there?")
     city = c2.selectbox("City", list(SUPPORTED_CITIES), index=list(SUPPORTED_CITIES).index("Singapore"))
-    hits = _guide_index().search(query, city)
+    try:
+        hits = _guide_index().search(query, city)
+    except Exception:  # a new question needs a live embedding call; recorded questions work without a key
+        st.info("Searching a new question needs an OpenAI key, and this deployment runs on recorded data only. "
+                "Try the default question, or run the app locally.")
+        hits = _guide_index().search("Can I chew gum there?", "Singapore")
     band = confidence_band(hits[0][1]) if hits else "stop"
     badge = {"proceed": "ok", "confirm": "human", "stop": "no"}[band]
     st.markdown(f"Best score **{hits[0][1]:.3f}** → <span class='badge {badge}'>{band}</span> "
@@ -290,7 +305,7 @@ def router_page() -> None:
                "a sub-agent from an earlier step.")
     st.markdown("#### Try the classifier (about \\$0.0001)")
     message = st.text_input("A message", "is there a tourist tax at hotels in Rome?")
-    if st.button("Classify", type="primary"):
+    if live_button("Classify", type="primary"):
         from langchain.messages import HumanMessage, SystemMessage
 
         from travel_planner.agents.assistant import IntentClassification
@@ -347,7 +362,7 @@ def evals_page() -> None:
     with c2:
         use_judge = st.toggle("LLM judge (level 3)", value=True)
     with c3:
-        offline = st.toggle("Replay only (never calls a paid API)", value=True,
+        offline = st.toggle("Replay only (never calls a paid API)", value=True, disabled=not LIVE,
                             help="Recorded responses only. A case whose prompt changed fails with 'no recording' "
                                  "instead of spending money.")
     if st.button("Run evals", type="primary", icon=":material/play_arrow:"):
@@ -495,7 +510,7 @@ def guardrails_page() -> None:
             st.code(f"{guardrails.FENCE_START}\n{json.dumps(body, indent=2)}\n{guardrails.FENCE_END}", language="json")
         else:
             st.code(json.dumps(json.loads(seen), indent=2), language="json")
-    if st.button("Ask the model to pick a hotel (about \\$0.0002)", type="primary"):
+    if live_button("Ask the model to pick a hotel (about \\$0.0002)", type="primary"):
         with st.spinner("Asking gpt-4o-mini..."):
             st.session_state.setdefault("guard_picks", {})["on" if guarded else "off"] = _pick_hotel(seen, guarded)
     picks = st.session_state.get("guard_picks", {})

@@ -26,7 +26,7 @@ from langchain_core.embeddings import Embeddings
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 
-from travel_planner.config import CACHE_DIR, PROJECT_ROOT
+from travel_planner.config import CACHE_DIR, PROJECT_ROOT, RECORDINGS_DIR
 from travel_planner.usage import record
 
 GUIDES_DIR = PROJECT_ROOT / "guides"
@@ -58,8 +58,10 @@ class CachedEmbeddings(Embeddings):
         gz = path.with_suffix(".json.gz")
         seed = os.environ.get("TRAVEL_CACHE_SEED_DIR")
         seeded = Path(seed) / "embeddings" / self.model_name / path.name if seed else None
-        if gz.exists():
-            return json.loads(gzip.decompress(gz.read_bytes()))
+        recorded = RECORDINGS_DIR / "embeddings" / self.model_name / gz.name  # committed: the guides, keyless
+        for compressed in (gz, recorded):
+            if compressed.exists():
+                return json.loads(gzip.decompress(compressed.read_bytes()))
         if path.exists():
             return json.loads(path.read_text())
         if seeded and seeded.exists():

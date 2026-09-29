@@ -6,7 +6,6 @@ turns into a message or a resume value for the SAME assistant graph the terminal
 """
 
 import json
-import os
 import time
 import uuid
 from datetime import date, timedelta
@@ -20,6 +19,7 @@ from travel_planner.agents.assistant import build_assistant, profile_namespace
 from travel_planner.agents.trip_planner import apply_selection
 from travel_planner.bookings import record_feedback
 from travel_planner.cities import SUPPORTED_CITIES, US_AIRPORTS
+from travel_planner.config import LIVE as HAS_LLM_KEY
 from travel_planner.itinerary import build_itinerary, fit_hotel_to_stay
 from travel_planner.models import CostBreakdown, TripPlan, TripRequest, cost_breakdown
 from travel_planner.persistence import open_checkpointer, open_store
@@ -596,7 +596,7 @@ def assistant_page() -> None:
                 "and sights; code checks the budget and the evidence; you approve before anything is booked.</div>",
                 unsafe_allow_html=True)
 
-    has_key = bool(os.environ.get("OPENAI_API_KEY"))
+    has_key = HAS_LLM_KEY
     picked = st.segmented_control("Mode", [LIVE, REPLAY], default=LIVE if has_key else REPLAY, key="mode_pick",
                                   label_visibility="collapsed")
     mode = REPLAY if not has_key else (picked or st.session_state.get("mode", LIVE))

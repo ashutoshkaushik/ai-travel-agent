@@ -28,13 +28,14 @@ from langchain.messages import AIMessage, HumanMessage, SystemMessage, ToolMessa
 from langchain_core.language_models import BaseChatModel
 
 from travel_planner.cities import SUPPORTED_CITIES
-from travel_planner.config import CACHE_DIR
+from travel_planner.config import CACHE_DIR, RECORDINGS_DIR
 from travel_planner.guardrails import guard_tool_output, unfence
 from travel_planner.llm import chat_model, tools_model
 from travel_planner.prompts import PLAIN_LLM_PROMPT, RAG_ANSWER_PROMPT, TOOL_ANSWER_PROMPT
 from travel_planner.trace import RunStats
 
 COMPARE_CACHE = CACHE_DIR / "compare"
+RECORDED = RECORDINGS_DIR / "compare"  # committed results for the default request, so a keyless deploy shows them
 LEVELS = {
     "L1": "Plain LLM",
     "L2": "RAG",
@@ -160,9 +161,9 @@ def run_l5(text: str, stats: RunStats) -> tuple[str, list[dict], str | None, flo
 def run_level(level: str, text: str, use_cache: bool = True) -> LevelResult:
     """Run one level (or return its cached result for this exact request)."""
     COMPARE_CACHE.mkdir(parents=True, exist_ok=True)
-    path = COMPARE_CACHE / f"{level}-{hashlib.sha256(text.strip().encode()).hexdigest()[:24]}.json"
-    if use_cache and path.exists():
-        return LevelResult(**json.loads(path.read_text()))
+    path = COMPARE_CACHE / _file_name(level, text)
+    if use_cache and (cached := _cached_path(level, text)):
+        return LevelResult(**json.loads(cached.read_text()))
 
     stats, start = RunStats(), time.perf_counter()
     paused, total, problems = None, None, []
@@ -178,8 +179,17 @@ def run_level(level: str, text: str, use_cache: bool = True) -> LevelResult:
     return result
 
 
+def _file_name(level: str, text: str) -> str:
+    return f"{level}-{hashlib.sha256(text.strip().encode()).hexdigest()[:24]}.json"
+
+
+def _cached_path(level: str, text: str):
+    return next((p for p in (COMPARE_CACHE / _file_name(level, text), RECORDED / _file_name(level, text))
+                 if p.exists()), None)
+
+
 def is_cached(level: str, text: str) -> bool:
-    return (COMPARE_CACHE / f"{level}-{hashlib.sha256(text.strip().encode()).hexdigest()[:24]}.json").exists()
+    return _cached_path(level, text) is not None
 
 
 # ------------------------------------------------------------------ code-scored checks

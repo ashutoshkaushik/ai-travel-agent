@@ -9,6 +9,15 @@ from dotenv import load_dotenv
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(PROJECT_ROOT / ".env", override=True)  # .env values take precedence over shell env vars
 
+# Live mode needs a real OpenAI key. Without one (a public, keyless deployment) the app runs on recorded
+# runs only; a placeholder lets agents still be built and drawn, and every live button is disabled.
+LIVE = bool(os.environ.get("OPENAI_API_KEY"))
+if not LIVE:
+    os.environ["OPENAI_API_KEY"] = "no-key-recorded-runs-only"
+
+# Committed recordings (replays, Compare results, guide embeddings) that work with no keys
+RECORDINGS_DIR = PROJECT_ROOT / "lab" / "recordings"
+
 # Evals point this at evals/cache (committed), so CI replays recorded API and LLM responses
 CACHE_DIR = Path(os.environ.get("TRAVEL_CACHE_DIR", PROJECT_ROOT / "cache"))
 

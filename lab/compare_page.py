@@ -8,6 +8,7 @@ Results are one table (levels as columns, measures as rows) so every row lines u
 import streamlit as st
 
 from lab.home import LADDER
+from travel_planner.config import LIVE
 from travel_planner.compare import (
     ESTIMATED_COST,
     LEVELS,
@@ -97,7 +98,7 @@ def compare_page() -> None:
     estimate = sum(ESTIMATED_COST[lvl] for lvl in pending)
     a, b = st.columns([1, 3], vertical_alignment="center")
     with a:
-        run = st.button("Run all", type="primary", width="stretch", icon=":material/play_arrow:", disabled=not pending)
+        run = st.button("Run all", type="primary", width="stretch", icon=":material/play_arrow:", disabled=not pending or not LIVE)
     with b:
         if pending:
             st.caption(safe_md(f"Estimated cost: about ${estimate:.3f} for {len(pending)} level(s) not yet run on this "

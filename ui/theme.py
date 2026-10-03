@@ -30,6 +30,7 @@ LIGHT = {
     "error": "#c4521f", "error-soft": "rgba(196,82,31,.12)",
     "muted": "#6f6b62",
     "line": "rgba(31,30,29,.14)",
+    "surface": "#FAF9F5", "sidebar": "#F3F1EA",
     "card": "#ffffff",
     "ink": "#1F1E1D",
 }
@@ -45,6 +46,7 @@ DARK = {
     "error": "#e66a3d", "error-soft": "rgba(230,106,61,.18)",
     "muted": "#a8a397",
     "line": "rgba(242,240,232,.16)",
+    "surface": "#262624", "sidebar": "#1F1E1D",
     "card": "#30302E",
     "ink": "#F2F0E8",
 }
@@ -107,9 +109,56 @@ def apply_theme() -> None:
                     color: var(--muted); margin: .8rem 0 .35rem; }}
 
   /* ---- Site chrome (ui/chrome.py) */
-  .author-name {{ font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600; margin-bottom: .35rem; }}
-  .site-footer {{ margin-top: 3rem; padding-top: .9rem; border-top: 1px solid var(--line); color: var(--muted);
-                  font-size: .8rem; text-align: center; }}
+  .author-name {{ font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600; margin-bottom: .45rem;
+                  text-align: center; }}
+  /* LinkedIn's own button style: LinkedIn blue, white "in" logo, pill shape, darker blue on hover.
+     Fixed brand colours (not theme tokens), so it reads as LinkedIn in both light and dark mode. */
+  a.li-btn {{ display: flex; align-items: center; justify-content: center; gap: .55rem; width: 100%;
+             box-sizing: border-box; padding: .55rem 1rem; border-radius: 999px; background: #0A66C2;
+             color: #ffffff !important; text-decoration: none !important; font: 600 .95rem/1.2 var(--font-body);
+             transition: background-color .15s ease, box-shadow .15s ease; }}
+  a.li-btn:hover {{ background: #004182; box-shadow: 0 2px 8px rgba(10,102,194,.35); }}
+  a.li-btn:focus-visible {{ outline: 2px solid #70B5F9; outline-offset: 2px; }}
+  a.li-btn .li-logo {{ width: 1.15rem; height: 1.15rem; flex: none; }}
+  /* Author card pinned to the bottom of the sidebar at any window height. The sidebar's scroll area is
+     Streamlit's own, so the card's block is position: fixed, and `contain: layout` makes the sidebar (not the
+     window) its containing block: it spans the sidebar's width and stays put while the menu scrolls behind it. */
+  [data-testid="stSidebar"] {{ contain: layout; }}
+  [data-testid="stSidebarContent"] {{ padding-bottom: 7.5rem; }}
+  [data-testid="stSidebar"] [data-testid="stElementContainer"]:has(.author-card) {{
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; margin: 0; width: auto !important;
+      background: var(--sidebar); border-top: 1px solid var(--line); padding: .8rem 1.5rem 1rem; }}
+  .author-card {{ max-width: 22rem; margin: 0 auto; }}
+
+  /* Footer, pages without a chat box: the page column fills at least the window, the footer is pushed to its
+     end, and it sticks to the bottom of the window while scrolling. Streamlit's large default bottom padding
+     is removed so the footer sits flush with the bottom edge. */
+  [data-testid="stApp"]:not(:has([data-testid="stChatInput"])) [data-testid="stMainBlockContainer"] {{
+      padding-bottom: 0 !important; min-height: 100dvh; display: flex; flex-direction: column; }}
+  [data-testid="stApp"]:not(:has([data-testid="stChatInput"])) [data-testid="stMainBlockContainer"]
+      > [data-testid="stVerticalBlock"] {{ flex: 1 0 auto; }}
+  [data-testid="stApp"]:not(:has([data-testid="stChatInput"])) [data-testid="stElementContainer"]:has(.site-footer) {{
+      margin-top: auto; position: sticky; bottom: 0; z-index: 4; }}
+  /* Footer, pages with a chat box: Streamlit pins the chat box to the bottom with an empty strip under it.
+     The footer is fixed into that strip, above the chat box's layer, using the main area (made a containing
+     block) for its width so it lines up with the page, not the window. */
+  :has(> [data-testid="stAppScrollToBottomContainer"]) {{ contain: layout; }}
+  [data-testid="stApp"]:has([data-testid="stChatInput"]) [data-testid="stElementContainer"]:has(.site-footer) {{
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; margin: 0; width: auto !important; }}
+  [data-testid="stApp"]:has([data-testid="stChatInput"]) .site-footer {{
+      background: transparent; backdrop-filter: none; border-top: 0; padding: .35rem 1rem .55rem; }}
+  .site-footer {{ padding: .55rem 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .78rem;
+                  text-align: center; line-height: 1.4;
+                  background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(6px); }}
+  .site-footer a {{ color: inherit; text-decoration: underline; }}
+  .site-footer .sf-short {{ display: none; }}
+  @media (max-width: 640px) {{ .site-footer .sf-long {{ display: none; }} .site-footer .sf-short {{ display: inline; }} }}
+  [data-testid="stApp"]:has([data-testid="stChatInput"]) .site-footer .sf-long {{ display: none; }}
+  [data-testid="stApp"]:has([data-testid="stChatInput"]) .site-footer .sf-short {{ display: inline; }}
+  /* Streamlit gives markdown blocks a -1rem bottom margin; without this the pinned card and footer overhang
+     the bottom edge */
+  [data-testid="stElementContainer"]:has(.site-footer) [data-testid="stMarkdownContainer"],
+  [data-testid="stElementContainer"]:has(.author-card) [data-testid="stMarkdownContainer"] {{ margin-bottom: 0; }}
 
   /* ---- Concept ladder (landing page): LLM -> RAG -> tools -> agent -> multi-agent */
   .ladder {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: .6rem 0 1.2rem; }}

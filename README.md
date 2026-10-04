@@ -9,6 +9,15 @@ A multi-agent travel planner built with LangChain and LangGraph. Tell it where y
 [AI History Research Assistant](https://ai-history-rag.streamlit.app/) (RAG) ·
 [Travel Agent Lab](https://ai-travel-agent.streamlit.app/) (multi-agent)
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Start here: a recorded run of the real agents](docs/screenshots/start-here.png) | ![Travel Assistant: review the plan before anything is booked](docs/screenshots/assistant.png) |
+| Start here: a recorded run of the real agents | Travel Assistant: review the plan before anything is booked |
+| ![Compare the levels: plain LLM → this app, on the same request](docs/screenshots/compare.png) | ![System diagram: drawn live from the compiled graphs](docs/screenshots/system-diagram.png) |
+| Compare the levels: plain LLM → this app, on the same request | System diagram: drawn live from the compiled graphs |
+
 ## What's inside
 
 The sidebar groups the pages. Light and dark themes follow your system setting.

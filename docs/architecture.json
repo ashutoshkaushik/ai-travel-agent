@@ -1,0 +1,466 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Travel Agent Lab: multi-agent architecture",
+    "output": "docs/architecture.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/ashutoshkaushik/ai-travel-agent.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "fd89ff6580b5ff5f915941ed0f6ff4d63c0d54e8"
+    }
+  },
+  "components": [
+    {
+      "id": "traveler",
+      "type": "external",
+      "label": "Traveler",
+      "sublabel": "browser",
+      "pos": [
+        20,
+        210
+      ],
+      "size": [
+        120,
+        64
+      ]
+    },
+    {
+      "id": "page",
+      "type": "frontend",
+      "label": "Travel Assistant",
+      "sublabel": "lab/assistant_page.py",
+      "pos": [
+        200,
+        210
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "lab/assistant_page.py",
+          "line": 51,
+          "end_line": 53,
+          "label": "get_assistant()"
+        },
+        {
+          "path": "lab/assistant_page.py",
+          "line": 636,
+          "end_line": 637,
+          "label": "chat input"
+        }
+      ]
+    },
+    {
+      "id": "guard",
+      "type": "security",
+      "label": "input_guard",
+      "sublabel": "plain-code check",
+      "pos": [
+        460,
+        210
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "tag": "blocked: fallback reply",
+      "sources": [
+        {
+          "path": "src/travel_planner/agents/assistant.py",
+          "line": 156,
+          "end_line": 163,
+          "label": "input_guard + route_guard"
+        },
+        {
+          "path": "src/travel_planner/guardrails.py",
+          "line": 122,
+          "end_line": 138,
+          "label": "check_input()"
+        }
+      ]
+    },
+    {
+      "id": "router",
+      "type": "backend",
+      "label": "classify_intent",
+      "sublabel": "structured output router",
+      "pos": [
+        700,
+        210
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "tag": "else: fallback",
+      "sources": [
+        {
+          "path": "src/travel_planner/agents/assistant.py",
+          "line": 165,
+          "end_line": 178,
+          "label": "classify + route_intent"
+        },
+        {
+          "path": "src/travel_planner/agents/assistant.py",
+          "line": 255,
+          "end_line": 268,
+          "label": "router graph"
+        }
+      ]
+    },
+    {
+      "id": "openai",
+      "type": "external",
+      "label": "OpenAI API",
+      "sublabel": "primary + fallback model",
+      "pos": [
+        960,
+        40
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/llm.py",
+          "line": 44,
+          "end_line": 58,
+          "label": "primary_model / fallback_model"
+        }
+      ]
+    },
+    {
+      "id": "memory",
+      "type": "database",
+      "label": "Checkpoints + memory",
+      "sublabel": "SQLite · SqliteSaver + store",
+      "pos": [
+        200,
+        410
+      ],
+      "size": [
+        180,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/persistence.py",
+          "line": 17,
+          "end_line": 29,
+          "label": "checkpoints.db, memory.db"
+        }
+      ]
+    },
+    {
+      "id": "planner",
+      "type": "backend",
+      "label": "Trip planner",
+      "sublabel": "research → budget_check",
+      "pos": [
+        460,
+        410
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "tag": "replan ≤ 2 · you review",
+      "sources": [
+        {
+          "path": "src/travel_planner/agents/trip_planner.py",
+          "line": 162,
+          "end_line": 210,
+          "label": "budget_check in code"
+        },
+        {
+          "path": "src/travel_planner/agents/trip_planner.py",
+          "line": 333,
+          "end_line": 345,
+          "label": "planner subgraph"
+        }
+      ]
+    },
+    {
+      "id": "booking",
+      "type": "security",
+      "label": "Booking agent",
+      "sublabel": "approval before every write",
+      "pos": [
+        700,
+        410
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/agents/booking_agent.py",
+          "line": 34,
+          "end_line": 42,
+          "label": "HumanInTheLoopMiddleware"
+        },
+        {
+          "path": "src/travel_planner/agents/assistant.py",
+          "line": 174,
+          "end_line": 176,
+          "label": "only after an approved plan"
+        }
+      ]
+    },
+    {
+      "id": "guide",
+      "type": "backend",
+      "label": "Travel guide",
+      "sublabel": "RAG agent · cited answers",
+      "pos": [
+        960,
+        410
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/agents/guide_agent.py",
+          "line": 58,
+          "end_line": 64,
+          "label": "build_guide_agent()"
+        },
+        {
+          "path": "src/travel_planner/agents/guide_agent.py",
+          "line": 76,
+          "end_line": 93,
+          "label": "verify_citations()"
+        }
+      ]
+    },
+    {
+      "id": "duffel",
+      "type": "external",
+      "label": "Duffel",
+      "sublabel": "flight offers · test mode",
+      "pos": [
+        330,
+        600
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/tools/flights.py",
+          "line": 59,
+          "end_line": 110,
+          "label": "search_flights"
+        }
+      ]
+    },
+    {
+      "id": "serpapi",
+      "type": "external",
+      "label": "SerpApi",
+      "sublabel": "hotels + top sights",
+      "pos": [
+        530,
+        600
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/tools/hotels.py",
+          "line": 11,
+          "end_line": 11,
+          "label": "hotels search"
+        },
+        {
+          "path": "src/travel_planner/tools/activities.py",
+          "line": 42,
+          "end_line": 63,
+          "label": "top sights"
+        }
+      ]
+    },
+    {
+      "id": "bookings",
+      "type": "database",
+      "label": "Bookings",
+      "sublabel": "bookings.db · simulated",
+      "pos": [
+        710,
+        600
+      ],
+      "size": [
+        150,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/bookings.py",
+          "line": 19,
+          "end_line": 37,
+          "label": "SQLite connection"
+        },
+        {
+          "path": "src/travel_planner/tools/booking.py",
+          "line": 12,
+          "end_line": 35,
+          "label": "book_flight / book_hotel"
+        }
+      ]
+    },
+    {
+      "id": "guides",
+      "type": "database",
+      "label": "City guides",
+      "sublabel": "guides/*.md · cached embeddings",
+      "pos": [
+        960,
+        600
+      ],
+      "size": [
+        170,
+        64
+      ],
+      "sources": [
+        {
+          "path": "src/travel_planner/rag.py",
+          "line": 1,
+          "end_line": 33,
+          "label": "chunk, embed, filter by city"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Router graph · agents/assistant.py",
+      "wraps": [
+        "guard",
+        "router",
+        "planner",
+        "booking",
+        "guide"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "visit",
+      "from": "traveler",
+      "to": "page",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "message",
+      "from": "page",
+      "to": "guard",
+      "label": "message",
+      "variant": "emphasis"
+    },
+    {
+      "id": "allowed",
+      "from": "guard",
+      "to": "router",
+      "label": "allowed",
+      "variant": "emphasis"
+    },
+    {
+      "id": "llm",
+      "from": "router",
+      "to": "openai",
+      "label": "LLM calls",
+      "variant": "dashed"
+    },
+    {
+      "id": "persist",
+      "from": "page",
+      "to": "memory",
+      "label": "save state"
+    },
+    {
+      "id": "plan",
+      "from": "router",
+      "to": "planner",
+      "label": "plan_trip"
+    },
+    {
+      "id": "book",
+      "from": "router",
+      "to": "booking",
+      "label": "book"
+    },
+    {
+      "id": "ask",
+      "from": "router",
+      "to": "guide",
+      "label": "question"
+    },
+    {
+      "id": "flights",
+      "from": "planner",
+      "to": "duffel",
+      "label": "flights",
+      "variant": "dashed"
+    },
+    {
+      "id": "hotels",
+      "from": "planner",
+      "to": "serpapi",
+      "label": "hotels, sights",
+      "variant": "dashed"
+    },
+    {
+      "id": "write-booking",
+      "from": "booking",
+      "to": "bookings",
+      "label": "approved writes",
+      "variant": "security"
+    },
+    {
+      "id": "search-guides",
+      "from": "guide",
+      "to": "guides",
+      "label": "search city"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "You stay in control",
+      "items": [
+        "interrupt() pauses for missing details, budget escalation and plan review",
+        "Every booking write waits for your approve, edit or reject"
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Code guarantees",
+      "items": [
+        "Budget math and price evidence checks are plain Python, not prompts",
+        "Tool output is sanitized before an LLM reads it"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Models",
+      "items": [
+        "All agents call OpenAI through llm.py, with a fallback model",
+        "Flight prices are Duffel test-mode data; bookings are simulated"
+      ]
+    }
+  ]
+}

@@ -37,6 +37,8 @@ Ten pages, one per concept: **1 · Tools**, **2 · The agent loop**, **3 · Huma
 
 ## How it works
 
+**[Interactive architecture diagram](https://htmlpreview.github.io/?https://github.com/ashutoshkaushik/ai-travel-agent/blob/main/docs/architecture.html)** ([source file](docs/architecture.html), model: [docs/architecture.json](docs/architecture.json)): every component links to the code it describes. Generated with [Archify](https://github.com/tt-a1i/archify); search nodes, trace paths, switch light/dark, export PNG or SVG.
+
 ```
                     ┌──────────────────────┐
   Traveler msg ───▶ │  Intent classifier   │  structured output
